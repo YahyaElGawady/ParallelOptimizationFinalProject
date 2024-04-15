@@ -34,6 +34,12 @@ class MyLexer(object):
     # Define the function to ignore whitespace
     t_ignore = ' \t\n'
 
+    # Define the function to recognize numbers
+    def t_NUMBER(self, t):
+        r'\d+'
+        t.value = int(t.value)
+        return t
+
     # Define the function to ignore comments
     def t_COMMENT(self, t):
         r'\#.*'
