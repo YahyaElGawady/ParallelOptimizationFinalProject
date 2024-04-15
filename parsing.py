@@ -5,11 +5,25 @@ import ply.lex as lex
 class MyLexer(object):
     # This is the class that will build the Lexer 
 
-    # Let's start with having our Lexer recognize print statements and basic numerical operatations
+    # Let's have our Lexer handle reserved keywords 
+    reserved = {
+        'if': 'IF',
+        'else': 'ELSE',
+        'elif': 'ELIF',
+        'while': 'WHILE',
+        'for': 'FOR',
+        'in': 'IN',
+        'range': 'RANGE',
+        'def': 'DEF',
+        'return': 'RETURN',
+        'True': 'TRUE',
+        'False': 'FALSE',
+        'None': 'NONE',
+    }
 
     # Define the tokens that the lexer will recognize 
-    tokens = (
-        'PRINT',
+    tokens = [
+        'PRINT', 
         'STRING',
         'COMMENT', # This is a comment token that will be ignored by the lexer
         'NUMBER', # This is a number token that will be used to represent integers and floats
@@ -19,7 +33,7 @@ class MyLexer(object):
         'DIVIDE', # This is a token that will be used to represent the division operation
         'LPAREN',
         'RPAREN',
-    ) 
+    ] + list(reserved.values())
 
     # Define the regular expressions for the tokens
     t_PRINT = r'print'
