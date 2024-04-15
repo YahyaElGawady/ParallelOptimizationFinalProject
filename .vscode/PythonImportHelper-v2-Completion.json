@@ -13,7 +13,7 @@
         "kind": 6,
         "importPath": "parsing",
         "description": "parsing",
-        "peekOfCode": "class MyLexer(object):\n    # This is the class that will build the Lexer \n    # Let's start with having our Lexer recognize print statements \n    # Define the tokens that the lexer will recognize \n    tokens = (\n        'PRINT',\n        'STRING',\n        'LPAREN',\n        'RPAREN',\n    ) ",
+        "peekOfCode": "class MyLexer(object):\n    # This is the class that will build the Lexer \n    # Let's have our Lexer handle reserved keywords \n    reserved = {\n        'if': 'IF',\n        'else': 'ELSE',\n        'elif': 'ELIF',\n        'while': 'WHILE',\n        'for': 'FOR',\n        'in': 'IN',",
         "detail": "parsing",
         "documentation": {}
     },
