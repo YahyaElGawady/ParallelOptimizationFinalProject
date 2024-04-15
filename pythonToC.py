@@ -17,7 +17,7 @@ def set_up (args, file_name):
     # copy from host to device
     # free all the variables
     file.write("return 0;\n}")
-def args_to_c:
+def args_to_c():
     #convert python args to c
     #numpy
 def main():
