@@ -47,9 +47,13 @@ class MyLexer(object):
                 break
             print(tok)
 
-def main():
+def main(input):
     # Call your parsing function(s) here
-    pass
+    
+    # Let input be a string that contains the code to be parsed 
+    m = MyLexer() 
+    m.build() 
+    m.test(input)
 
 if __name__ == "__main__":
     main()
