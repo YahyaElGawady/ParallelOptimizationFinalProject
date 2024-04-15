@@ -1,0 +1,38 @@
+[
+    {
+        "label": "ply.lex",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "ply.lex",
+        "description": "ply.lex",
+        "detail": "ply.lex",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "parsing",
+        "description": "parsing",
+        "peekOfCode": "def main():\n    # Call your parsing function(s) here\n    pass\nif __name__ == \"__main__\":\n    main()",
+        "detail": "parsing",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "pythonTopython",
+        "description": "pythonTopython",
+        "peekOfCode": "def main():\n    # Your main code logic goes here\n    pass\nif __name__ == \"__main__\":\n    main()",
+        "detail": "pythonTopython",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def main():\n    # Your main code logic goes here\n    pass\nif __name__ == \"__main__\":\n    main()",
+        "detail": "pythonToC",
+        "documentation": {}
+    }
+]

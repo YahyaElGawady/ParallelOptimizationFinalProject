@@ -11,7 +11,13 @@ A brief description of what this project does.
 
 ## Installation
 
-Instructions on how to install and set up the project.
+One of the packages needed for this project is PLY, which implements lex and yacc for Python. Instructions on how to install this can be found here: https://pypi.org/project/ply/.  
+
+Installing PLY can be done using pip:
+
+```bash 
+pip install ply
+```
 
 ## Usage
 
