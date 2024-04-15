@@ -5,12 +5,18 @@ import ply.lex as lex
 class MyLexer(object):
     # This is the class that will build the Lexer 
 
-    # Let's start with having our Lexer recognize print statements 
+    # Let's start with having our Lexer recognize print statements and basic numerical operatations
 
     # Define the tokens that the lexer will recognize 
     tokens = (
         'PRINT',
         'STRING',
+        'COMMENT', # This is a comment token that will be ignored by the lexer
+        'NUMBER', # This is a number token that will be used to represent integers and floats
+        'PLUS', # This is a token that will be used to represent the addition operation
+        'MINUS', # This is a token that will be used to represent the subtraction operation
+        'TIMES', # This is a token that will be used to represent the multiplication operation
+        'DIVIDE', # This is a token that will be used to represent the division operation
         'LPAREN',
         'RPAREN',
     ) 
@@ -18,6 +24,10 @@ class MyLexer(object):
     # Define the regular expressions for the tokens
     t_PRINT = r'print'
     t_STRING = r'\".*?\"'
+    t_PLUS = r'\+'
+    t_MINUS = r'\-'
+    t_TIMES = r'\*'
+    t_DIVIDE = r'/'
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
 
