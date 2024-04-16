@@ -30,3 +30,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+#helper functions
+__device__ void addArraysHelper(float *array1, float *array2, float *result) {
+    int N = blockDim.x * gridDim.x;
+    for (int i = threadIdx.x + blockIdx.x * blockDim.x; i < N; i += blockDim.x * gridDim.x) {
+        result[i] = array1[i] + array2[i];
+    }
+}
+__global__ void subtractArraysHelper(float *array1, float *array2, float *result) {
+    int N = blockDim.x * gridDim.x;
+    for (int i = threadIdx.x + blockIdx.x * blockDim.x; i < N; i += blockDim.x * gridDim.x) {
+        result[i] = array1[i] - array2[i];
+    }
+}
