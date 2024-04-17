@@ -14,11 +14,15 @@ class MyParser(object):
         '''statement : PRINT LPAREN STRING RPAREN'''
         # Based on the mode, we either want to call the C or Python print function 
         if self.mode == 'C':
-            # for now let's put a placeholder
-            print("C print")
+            # return a print statement in C 
+            output = "printf(%s);" % p[3] 
+            # print(output)
+            p[0] = output
         else:
-            # for now let's put a placeholder
-            print("Python print")
+            # return a print statement in Python 
+            output = "print(%s)" % p[3] 
+            # print(output)
+            p[0] = output
 
     # Handle binary numerical operations 
 
@@ -35,6 +39,9 @@ class MyParser(object):
         self.mode = mode
 
     def parse(self, s): 
+        # print("Parsing: %s" % s)    
+        # print("Output:")
+        # print(self.parser.parse(s))
         return self.parser.parse(s)
 
 
@@ -42,7 +49,7 @@ def main(input, mode):
     # Create a parser object
     parser = MyParser(mode)
     # Parse the input
-    parser.parse(input)
+    return parser.parse(input)
 
 if __name__ == '__main__':
     main()

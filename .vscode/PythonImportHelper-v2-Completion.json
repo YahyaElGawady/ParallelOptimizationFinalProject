@@ -9,11 +9,12 @@
         "documentation": {}
     },
     {
-        "label": "yacc",
-        "importPath": "ply",
-        "description": "ply",
+        "label": "cupy",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "ply",
+        "importPath": "cupy",
+        "description": "cupy",
+        "detail": "cupy",
         "documentation": {}
     },
     {
@@ -23,6 +24,14 @@
         "importPath": "numpy",
         "description": "numpy",
         "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "yacc",
+        "importPath": "ply",
+        "description": "ply",
+        "isExtraImport": true,
+        "detail": "ply",
         "documentation": {}
     },
     {
@@ -57,6 +66,51 @@
         "description": "parsing_lex",
         "peekOfCode": "def main(input):\n    # Call your parsing function(s) here\n    # Let input be a string that contains the code to be parsed \n    m = MyLexer() \n    m.build() \n    m.test(input)\nif __name__ == \"__main__\":\n    main()",
         "detail": "parsing_lex",
+        "documentation": {}
+    },
+    {
+        "label": "add_with_gpu",
+        "kind": 2,
+        "importPath": "pythonTopython",
+        "description": "pythonTopython",
+        "peekOfCode": "def add_with_gpu(self, x_np, y_np):\n    \"\"\"\n    perform element-wise addition of two arrays using GPU acceleration\n    parameters:\n    x_np (numpy.ndarray): The first input array\n    y_np (numpy.ndarray): The second input array\n    returns:\n    numpy.ndarray: The result of adding x_np and y_np element-wise, returned as a NumPy array\n    sample usage: \n        x_np = np.array([5, 7, 9])",
+        "detail": "pythonTopython",
+        "documentation": {}
+    },
+    {
+        "label": "subtract_with_gpu",
+        "kind": 2,
+        "importPath": "pythonTopython",
+        "description": "pythonTopython",
+        "peekOfCode": "def subtract_with_gpu(self, x_np, y_np):\n    \"\"\"\n    perform element-wise subtraction of two arrays using GPU acceleration\n    parameters:\n    x_np (numpy.ndarray): The minuend array\n    y_np (numpy.ndarray): The subtrahend array\n    returns:\n    numpy.ndarray: The result of subtracting y_np from x_np element-wise, returned as a NumPy array\n    sample usage: \n        x_np = np.array([5, 7, 9])",
+        "detail": "pythonTopython",
+        "documentation": {}
+    },
+    {
+        "label": "sum_with_gpu",
+        "kind": 2,
+        "importPath": "pythonTopython",
+        "description": "pythonTopython",
+        "peekOfCode": "def sum_with_gpu(a_np, axis=None, dtype=None, keepdims=False):\n    \"\"\"\n    compute the sum of array elements over a given axis using GPU acceleration\n    parameters:\n        - a_np (numpy.ndarray): The input array.\n        - axis (int or tuple of ints, optional): Axis or axes along which a sum is performed. Default is None, summing all elements\n        - dtype (data-type, optional): The type of the returned array and of the accumulator in which the elements are summed\n        - keepdims (bool, optional): If this is set to True, the axes which are reduced are left in the result as dimensions with size one\n    returns:\n        - numpy.ndarray: An array with the same shape as `a_np`, except the axis along which the sum is computed is removed, unless `keepdims` is True",
+        "detail": "pythonTopython",
+        "documentation": {}
+    },
+    {
+        "label": "dot_with_gpu",
+        "kind": 2,
+        "importPath": "pythonTopython",
+        "description": "pythonTopython",
+        "peekOfCode": "def dot_with_gpu(a_np, b_np):\n    \"\"\"\n    compute the dot product of two arrays using GPU acceleration.\n    parameters:\n        - a_np (numpy.ndarray): First operand, can be a 1-D or 2-D array.\n        - b_np (numpy.ndarray): Second operand, must be a 1-D or 2-D array.\n    returns:\n        - numpy.ndarray: Dot product of a_np and b_np. If both a_np and b_np are 1-D arrays, it returns the inner product. If both are 2-D, it returns the matrix product.\n    sample usage:\n        a_np = np.array([1, 2])",
+        "detail": "pythonTopython",
+        "documentation": {}
+    },
+    {
+        "label": "function_caller",
+        "kind": 2,
+        "importPath": "pythonTopython",
+        "description": "pythonTopython",
+        "peekOfCode": "def function_caller(func_name, params):\n    \"\"\"\n    dynamically call a function based on the provided name and parameters (from the parser's output)\n    parameters:\n        - func_name (str): The name of the function to be called\n        - params (list): A list of parameters to be passed to the function\n    returns:\n        - the result of the function call\n    sample usage:\n        result = function_caller('add', [np.array([1, 2, 3]), np.array([4, 5, 6])])",
+        "detail": "pythonTopython",
         "documentation": {}
     },
     {
@@ -100,7 +154,7 @@
         "kind": 6,
         "importPath": "parsing_yacc",
         "description": "parsing_yacc",
-        "peekOfCode": "class MyParser(object): \n    # Define the tokens that the parser will recognize \n    tokens = MyLexer.tokens\n    # Handle print statements \n    def p_print_statement(self, p):\n        '''statement : PRINT LPAREN STRING RPAREN'''\n        # Based on the mode, we either want to call the C or Python print function \n        if self.mode == 'C':\n            # for now let's put a placeholder\n            print(\"C print\")",
+        "peekOfCode": "class MyParser(object): \n    # Define the tokens that the parser will recognize \n    tokens = MyLexer.tokens\n    # Handle print statements \n    def p_print_statement(self, p):\n        '''statement : PRINT LPAREN STRING RPAREN'''\n        # Based on the mode, we either want to call the C or Python print function \n        if self.mode == 'C':\n            # return a print statement in C \n            output = \"printf(%s);\" % p[3] ",
         "detail": "parsing_yacc",
         "documentation": {}
     },
@@ -109,7 +163,7 @@
         "kind": 2,
         "importPath": "parsing_yacc",
         "description": "parsing_yacc",
-        "peekOfCode": "def main(input, mode):\n    # Create a parser object\n    parser = MyParser(mode)\n    # Parse the input\n    parser.parse(input)\nif __name__ == '__main__':\n    main()",
+        "peekOfCode": "def main(input, mode):\n    # Create a parser object\n    parser = MyParser(mode)\n    # Parse the input\n    return parser.parse(input)\nif __name__ == '__main__':\n    main()",
         "detail": "parsing_yacc",
         "documentation": {}
     },
