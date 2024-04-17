@@ -50,6 +50,7 @@ class MyLexer(object):
     t_EQUALS = r'='
     t_DOUBLE_EQUALS = r'=='
     t_COLON = r':'
+    t_NUMBER = r'\d+'
 
     #  Handle if statements 
     def t_IF(self, t):
@@ -68,12 +69,6 @@ class MyLexer(object):
 
     # Define the function to ignore whitespace
     t_ignore = ' \t\n'
-
-    # Define the function to recognize numbers
-    def t_NUMBER(self, t):
-        r'\d+'
-        t.value = int(t.value)
-        return t
 
     # Define the function to ignore comments
     def t_COMMENT(self, t):

@@ -5,7 +5,6 @@ Unused terminals:
     COLON
     COMMENT
     DEF
-    DIVIDE
     DOUBLE_EQUALS
     ELIF
     ELSE
@@ -14,13 +13,9 @@ Unused terminals:
     FOR
     IF
     IN
-    MINUS
     NONE
-    NUMBER
-    PLUS
     RANGE
     RETURN
-    TIMES
     TRUE
     WHILE
 
@@ -28,13 +23,17 @@ Grammar
 
 Rule 0     S' -> statement
 Rule 1     statement -> PRINT LPAREN STRING RPAREN
+Rule 2     statement -> NUMBER PLUS NUMBER
+Rule 3     statement -> NUMBER MINUS NUMBER
+Rule 4     statement -> NUMBER TIMES NUMBER
+Rule 5     statement -> NUMBER DIVIDE NUMBER
 
 Terminals, with rules where they appear
 
 COLON                : 
 COMMENT              : 
 DEF                  : 
-DIVIDE               : 
+DIVIDE               : 5
 DOUBLE_EQUALS        : 
 ELIF                 : 
 ELSE                 : 
@@ -44,16 +43,16 @@ FOR                  :
 IF                   : 
 IN                   : 
 LPAREN               : 1
-MINUS                : 
+MINUS                : 3
 NONE                 : 
-NUMBER               : 
-PLUS                 : 
+NUMBER               : 2 2 3 3 4 4 5 5
+PLUS                 : 2
 PRINT                : 1
 RANGE                : 
 RETURN               : 
 RPAREN               : 1
 STRING               : 1
-TIMES                : 
+TIMES                : 4
 TRUE                 : 
 WHILE                : 
 error                : 
@@ -68,8 +67,13 @@ state 0
 
     (0) S' -> . statement
     (1) statement -> . PRINT LPAREN STRING RPAREN
+    (2) statement -> . NUMBER PLUS NUMBER
+    (3) statement -> . NUMBER MINUS NUMBER
+    (4) statement -> . NUMBER TIMES NUMBER
+    (5) statement -> . NUMBER DIVIDE NUMBER
 
     PRINT           shift and go to state 2
+    NUMBER          shift and go to state 3
 
     statement                      shift and go to state 1
 
@@ -83,24 +87,93 @@ state 2
 
     (1) statement -> PRINT . LPAREN STRING RPAREN
 
-    LPAREN          shift and go to state 3
+    LPAREN          shift and go to state 4
 
 
 state 3
 
-    (1) statement -> PRINT LPAREN . STRING RPAREN
+    (2) statement -> NUMBER . PLUS NUMBER
+    (3) statement -> NUMBER . MINUS NUMBER
+    (4) statement -> NUMBER . TIMES NUMBER
+    (5) statement -> NUMBER . DIVIDE NUMBER
 
-    STRING          shift and go to state 4
+    PLUS            shift and go to state 5
+    MINUS           shift and go to state 6
+    TIMES           shift and go to state 7
+    DIVIDE          shift and go to state 8
 
 
 state 4
 
-    (1) statement -> PRINT LPAREN STRING . RPAREN
+    (1) statement -> PRINT LPAREN . STRING RPAREN
 
-    RPAREN          shift and go to state 5
+    STRING          shift and go to state 9
 
 
 state 5
+
+    (2) statement -> NUMBER PLUS . NUMBER
+
+    NUMBER          shift and go to state 10
+
+
+state 6
+
+    (3) statement -> NUMBER MINUS . NUMBER
+
+    NUMBER          shift and go to state 11
+
+
+state 7
+
+    (4) statement -> NUMBER TIMES . NUMBER
+
+    NUMBER          shift and go to state 12
+
+
+state 8
+
+    (5) statement -> NUMBER DIVIDE . NUMBER
+
+    NUMBER          shift and go to state 13
+
+
+state 9
+
+    (1) statement -> PRINT LPAREN STRING . RPAREN
+
+    RPAREN          shift and go to state 14
+
+
+state 10
+
+    (2) statement -> NUMBER PLUS NUMBER .
+
+    $end            reduce using rule 2 (statement -> NUMBER PLUS NUMBER .)
+
+
+state 11
+
+    (3) statement -> NUMBER MINUS NUMBER .
+
+    $end            reduce using rule 3 (statement -> NUMBER MINUS NUMBER .)
+
+
+state 12
+
+    (4) statement -> NUMBER TIMES NUMBER .
+
+    $end            reduce using rule 4 (statement -> NUMBER TIMES NUMBER .)
+
+
+state 13
+
+    (5) statement -> NUMBER DIVIDE NUMBER .
+
+    $end            reduce using rule 5 (statement -> NUMBER DIVIDE NUMBER .)
+
+
+state 14
 
     (1) statement -> PRINT LPAREN STRING RPAREN .
 
