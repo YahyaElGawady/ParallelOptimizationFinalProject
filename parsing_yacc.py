@@ -52,6 +52,12 @@ class MyParser(object):
         output = "%s / %s" % (p[1], p[3]) 
         p[0] = output
 
+    # Let's handle parenthesis in binary operations 
+    def p_expression_parenthesis(self, p):
+        '''statement : LPAREN statement RPAREN'''
+        output = "(%s)" % p[2] 
+        p[0] = output
+
     # Handle if-statements
 
     # Create an error handler
