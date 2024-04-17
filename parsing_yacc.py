@@ -60,6 +60,10 @@ class MyParser(object):
 
     # Handle if-statements
 
+
+
+    # Handle numpy operations
+
     # Create an error handler
     def p_error(self, p):
         print("Syntax error in input!")
