@@ -31,8 +31,11 @@ class MyLexer(object):
         'MINUS', # This is a token that will be used to represent the subtraction operation
         'TIMES', # This is a token that will be used to represent the multiplication operation
         'DIVIDE', # This is a token that will be used to represent the division operation
+        'EQUALS', # This is a token that will be used to represent the assignment operation
+        'DOUBLE_EQUALS', # This is a token that will be used to represent the equality operation
         'LPAREN',
         'RPAREN',
+        'COLON', # This is a token that will be used to represent the colon character
     ] + list(reserved.values())
 
     # Define the regular expressions for the tokens
@@ -44,6 +47,24 @@ class MyLexer(object):
     t_DIVIDE = r'/'
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
+    t_EQUALS = r'='
+    t_DOUBLE_EQUALS = r'=='
+    t_COLON = r':'
+
+    #  Handle if statements 
+    def t_IF(self, t):
+        r'if'
+        return t
+    
+    # Handle else statements
+    def t_ELSE(self, t):
+        r'else'
+        return t
+    
+    # Handle elif statements
+    def t_ELIF(self, t):
+        r'elif'
+        return t
 
     # Define the function to ignore whitespace
     t_ignore = ' \t\n'

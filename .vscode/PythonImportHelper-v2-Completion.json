@@ -9,6 +9,31 @@
         "documentation": {}
     },
     {
+        "label": "yacc",
+        "importPath": "ply",
+        "description": "ply",
+        "isExtraImport": true,
+        "detail": "ply",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "MyLexer",
+        "importPath": "parsing",
+        "description": "parsing",
+        "isExtraImport": true,
+        "detail": "parsing",
+        "documentation": {}
+    },
+    {
         "label": "MyLexer",
         "kind": 6,
         "importPath": "parsing",
@@ -36,12 +61,66 @@
         "documentation": {}
     },
     {
+        "label": "set_u",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def set_up (args, file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"#include <stdio.h>\\n\")\n    file.write(\"#include <cuda_runtime.h>\\n\\n\")\n    file.write(\"__global__ void \" + file_name + \"(int [][] args) {\\n\")\n    # parse through the function\n    file.write(\"}\\n\\n__host__\\n\")\n    file.write(\"int main() {\\n\")\n    file.write(\"const int THREADS_PER_BLOCK = 256, BLOCKS = 3;\\n\\n\")\n    # convert args to c",
+        "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
+        "label": "args_to_c",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def args_to_c():\n    #convert python args to c\n    #numpy\ndef main():\n    pass\nif __name__ == \"__main__\":\n    main()\n#helper functions\n__device__ void addArraysHelper(float *array1, float *array2, float *result) {\n    int N = blockDim.x * gridDim.x;",
+        "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
         "label": "main",
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def main():\n    # Your main code logic goes here\n    pass\nif __name__ == \"__main__\":\n    main()",
+        "peekOfCode": "def main():\n    pass\nif __name__ == \"__main__\":\n    main()\n#helper functions\n__device__ void addArraysHelper(float *array1, float *array2, float *result) {\n    int N = blockDim.x * gridDim.x;\n    for (int i = threadIdx.x + blockIdx.x * blockDim.x; i < N; i += blockDim.x * gridDim.x) {\n        result[i] = array1[i] + array2[i];\n    }",
         "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
+        "label": "error",
+        "kind": 2,
+        "importPath": "parsing_yacc",
+        "description": "parsing_yacc",
+        "peekOfCode": "def error(t):\n    if t:\n        print(\"Syntax ERROR at token: {t.value}\")\n    else:\n        print(\"Syntax ERROR at EOF\")\n#Parser\ndef parser():\n    parser = yacc.yacc(module=parsing_yacc)\n    return parser\n#testing",
+        "detail": "parsing_yacc",
+        "documentation": {}
+    },
+    {
+        "label": "parser",
+        "kind": 2,
+        "importPath": "parsing_yacc",
+        "description": "parsing_yacc",
+        "peekOfCode": "def parser():\n    parser = yacc.yacc(module=parsing_yacc)\n    return parser\n#testing",
+        "detail": "parsing_yacc",
+        "documentation": {}
+    },
+    {
+        "label": "lexer",
+        "kind": 5,
+        "importPath": "parsing_yacc",
+        "description": "parsing_yacc",
+        "peekOfCode": "lexer = MyLexer()\nlexer.build()\ntokens = lexer.tokens\n#handling grammar rule -- print statement \n#handling grammar rule -- matrix multip\n#handling grammar rule -- matrix addition\n#handling grammar rule -- matrix sub\n#handle grammar rule -- matrix\n#handle syntax errors\ndef error(t):",
+        "detail": "parsing_yacc",
+        "documentation": {}
+    },
+    {
+        "label": "tokens",
+        "kind": 5,
+        "importPath": "parsing_yacc",
+        "description": "parsing_yacc",
+        "peekOfCode": "tokens = lexer.tokens\n#handling grammar rule -- print statement \n#handling grammar rule -- matrix multip\n#handling grammar rule -- matrix addition\n#handling grammar rule -- matrix sub\n#handle grammar rule -- matrix\n#handle syntax errors\ndef error(t):\n    if t:\n        print(\"Syntax ERROR at token: {t.value}\")",
+        "detail": "parsing_yacc",
         "documentation": {}
     }
 ]
