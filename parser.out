@@ -1,0 +1,108 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COLON
+    COMMENT
+    DEF
+    DIVIDE
+    DOUBLE_EQUALS
+    ELIF
+    ELSE
+    EQUALS
+    FALSE
+    FOR
+    IF
+    IN
+    MINUS
+    NONE
+    NUMBER
+    PLUS
+    RANGE
+    RETURN
+    TIMES
+    TRUE
+    WHILE
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> PRINT LPAREN STRING RPAREN
+
+Terminals, with rules where they appear
+
+COLON                : 
+COMMENT              : 
+DEF                  : 
+DIVIDE               : 
+DOUBLE_EQUALS        : 
+ELIF                 : 
+ELSE                 : 
+EQUALS               : 
+FALSE                : 
+FOR                  : 
+IF                   : 
+IN                   : 
+LPAREN               : 1
+MINUS                : 
+NONE                 : 
+NUMBER               : 
+PLUS                 : 
+PRINT                : 1
+RANGE                : 
+RETURN               : 
+RPAREN               : 1
+STRING               : 1
+TIMES                : 
+TRUE                 : 
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+statement            : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . PRINT LPAREN STRING RPAREN
+
+    PRINT           shift and go to state 2
+
+    statement                      shift and go to state 1
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> PRINT . LPAREN STRING RPAREN
+
+    LPAREN          shift and go to state 3
+
+
+state 3
+
+    (1) statement -> PRINT LPAREN . STRING RPAREN
+
+    STRING          shift and go to state 4
+
+
+state 4
+
+    (1) statement -> PRINT LPAREN STRING . RPAREN
+
+    RPAREN          shift and go to state 5
+
+
+state 5
+
+    (1) statement -> PRINT LPAREN STRING RPAREN .
+
+    $end            reduce using rule 1 (statement -> PRINT LPAREN STRING RPAREN .)
+

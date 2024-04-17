@@ -1,7 +1,7 @@
 from ply import yacc
 import numpy as np
 
-from parsing_lex import MyLexer
+from parsing_lex import main, MyLexer
 
 # Create a class that will build the yacc Parser 
 # Based on the mode, it will either call the C or Python parser
@@ -10,6 +10,15 @@ class MyParser(object):
     tokens = MyLexer.tokens
 
     # Handle print statements 
+    def p_print_statement(self, p):
+        '''statement : PRINT LPAREN STRING RPAREN'''
+        # Based on the mode, we either want to call the C or Python print function 
+        if self.mode == 'C':
+            # for now let's put a placeholder
+            print("C print")
+        else:
+            # for now let's put a placeholder
+            print("Python print")
 
     # Handle binary numerical operations 
 
@@ -25,9 +34,18 @@ class MyParser(object):
         self.parser = yacc.yacc(module=self)
         self.mode = mode
 
-    def parse(self, s, mode):
-        return self.parser.parse(s, lexer=self.lexer.lexer, mode=mode)
+    def parse(self, s): 
+        return self.parser.parse(s)
 
+
+def main(input, mode):
+    # Create a parser object
+    parser = MyParser(mode)
+    # Parse the input
+    parser.parse(input)
+
+if __name__ == '__main__':
+    main()
 
 
 
