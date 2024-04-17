@@ -27,28 +27,28 @@
     },
     {
         "label": "MyLexer",
-        "importPath": "parsing",
-        "description": "parsing",
+        "importPath": "parsing_lex",
+        "description": "parsing_lex",
         "isExtraImport": true,
-        "detail": "parsing",
+        "detail": "parsing_lex",
         "documentation": {}
     },
     {
         "label": "MyLexer",
         "kind": 6,
-        "importPath": "parsing",
-        "description": "parsing",
+        "importPath": "parsing_lex",
+        "description": "parsing_lex",
         "peekOfCode": "class MyLexer(object):\n    # This is the class that will build the Lexer \n    # Let's have our Lexer handle reserved keywords \n    reserved = {\n        'if': 'IF',\n        'else': 'ELSE',\n        'elif': 'ELIF',\n        'while': 'WHILE',\n        'for': 'FOR',\n        'in': 'IN',",
-        "detail": "parsing",
+        "detail": "parsing_lex",
         "documentation": {}
     },
     {
         "label": "main",
         "kind": 2,
-        "importPath": "parsing",
-        "description": "parsing",
+        "importPath": "parsing_lex",
+        "description": "parsing_lex",
         "peekOfCode": "def main(input):\n    # Call your parsing function(s) here\n    # Let input be a string that contains the code to be parsed \n    m = MyLexer() \n    m.build() \n    m.test(input)\nif __name__ == \"__main__\":\n    main()",
-        "detail": "parsing",
+        "detail": "parsing_lex",
         "documentation": {}
     },
     {
@@ -88,38 +88,11 @@
         "documentation": {}
     },
     {
-        "label": "error",
-        "kind": 2,
+        "label": "MyParser",
+        "kind": 6,
         "importPath": "parsing_yacc",
         "description": "parsing_yacc",
-        "peekOfCode": "def error(t):\n    if t:\n        print(\"Syntax ERROR at token: {t.value}\")\n    else:\n        print(\"Syntax ERROR at EOF\")\n#Parser\ndef parser():\n    parser = yacc.yacc(module=parsing_yacc)\n    return parser\n#testing",
-        "detail": "parsing_yacc",
-        "documentation": {}
-    },
-    {
-        "label": "parser",
-        "kind": 2,
-        "importPath": "parsing_yacc",
-        "description": "parsing_yacc",
-        "peekOfCode": "def parser():\n    parser = yacc.yacc(module=parsing_yacc)\n    return parser\n#testing",
-        "detail": "parsing_yacc",
-        "documentation": {}
-    },
-    {
-        "label": "lexer",
-        "kind": 5,
-        "importPath": "parsing_yacc",
-        "description": "parsing_yacc",
-        "peekOfCode": "lexer = MyLexer()\nlexer.build()\ntokens = lexer.tokens\n#handling grammar rule -- print statement \n#handling grammar rule -- matrix multip\n#handling grammar rule -- matrix addition\n#handling grammar rule -- matrix sub\n#handle grammar rule -- matrix\n#handle syntax errors\ndef error(t):",
-        "detail": "parsing_yacc",
-        "documentation": {}
-    },
-    {
-        "label": "tokens",
-        "kind": 5,
-        "importPath": "parsing_yacc",
-        "description": "parsing_yacc",
-        "peekOfCode": "tokens = lexer.tokens\n#handling grammar rule -- print statement \n#handling grammar rule -- matrix multip\n#handling grammar rule -- matrix addition\n#handling grammar rule -- matrix sub\n#handle grammar rule -- matrix\n#handle syntax errors\ndef error(t):\n    if t:\n        print(\"Syntax ERROR at token: {t.value}\")",
+        "peekOfCode": "class MyParser(object): \n    # Define the tokens that the parser will recognize \n    tokens = MyLexer.tokens\n    # Handle print statements \n    # Handle binary numerical operations \n    # Handle if-statements\n    # Create an error handler\n    def p_error(self, p):\n        print(\"Syntax error in input!\")\n    # Define the parser ",
         "detail": "parsing_yacc",
         "documentation": {}
     }
