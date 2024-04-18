@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COLON COMMENT DEF DIVIDE DOUBLE_EQUALS ELIF ELSE EQUALS FALSE FOR IF IN LPAREN MINUS NONE NUMBER PLUS PRINT RANGE RETURN RPAREN STRING TIMES TRUE WHILEstatement : PRINT LPAREN STRING RPARENstatement : NUMBER PLUS NUMBERstatement : NUMBER MINUS NUMBERstatement : NUMBER TIMES NUMBERstatement : NUMBER DIVIDE NUMBERstatement : LPAREN statement RPAREN'
+_lr_signature = 'COLON COMMENT DEF DIVIDE DOUBLE_EQUALS ELIF ELSE EQUALS FALSE FOR IF IN LPAREN MINUS NONE NUMBER PLUS PRINT RANGE RETURN RPAREN STRING TIMES TRUE WHILEstatement : PRINT LPAREN STRING RPAREN \n                     | PRINT LPAREN NUMBER RPAREN\n                     | PRINT LPAREN statement RPARENstatement : NUMBER PLUS NUMBER \n                     | statement PLUS NUMBER\n                     | NUMBER PLUS statement\n                     | statement PLUS statementstatement : NUMBER MINUS NUMBER \n                     | statement MINUS NUMBER\n                     | NUMBER MINUS statement\n                     | statement MINUS statementstatement : NUMBER TIMES NUMBER \n                     | statement TIMES NUMBER\n                     | NUMBER TIMES statement\n                     | statement TIMES statementstatement : NUMBER DIVIDE NUMBER\n                     | statement DIVIDE NUMBER\n                     | NUMBER DIVIDE statement\n                     | statement DIVIDE statementstatement : LPAREN statement RPAREN'
     
-_lr_action_items = {'PRINT':([0,3,],[2,2,]),'NUMBER':([0,3,7,8,9,10,],[4,4,13,14,15,16,]),'LPAREN':([0,2,3,],[3,5,3,]),'$end':([1,12,13,14,15,16,17,],[0,-6,-2,-3,-4,-5,-1,]),'PLUS':([4,],[7,]),'MINUS':([4,],[8,]),'TIMES':([4,],[9,]),'DIVIDE':([4,],[10,]),'STRING':([5,],[11,]),'RPAREN':([6,11,12,13,14,15,16,17,],[12,17,-6,-2,-3,-4,-5,-1,]),}
+_lr_action_items = {'PRINT':([0,3,5,6,7,8,9,11,12,13,14,],[2,2,2,2,2,2,2,2,2,2,2,]),'NUMBER':([0,3,5,6,7,8,9,11,12,13,14,],[4,4,16,18,20,22,24,27,29,31,33,]),'LPAREN':([0,2,3,5,6,7,8,9,11,12,13,14,],[3,9,3,3,3,3,3,3,3,3,3,3,]),'$end':([1,15,16,17,18,19,20,21,22,26,27,28,29,30,31,32,33,34,35,36,37,],[0,-7,-5,-11,-9,-15,-13,-19,-17,-20,-4,-6,-8,-10,-12,-14,-16,-18,-1,-2,-3,]),'PLUS':([1,4,10,15,16,17,18,19,20,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,],[5,11,5,5,11,5,11,5,11,5,11,11,5,-20,11,5,11,5,11,5,11,5,-1,-2,-3,]),'MINUS':([1,4,10,15,16,17,18,19,20,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,],[6,12,6,6,12,6,12,6,12,6,12,12,6,-20,12,6,12,6,12,6,12,6,-1,-2,-3,]),'TIMES':([1,4,10,15,16,17,18,19,20,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,],[7,13,7,7,13,7,13,7,13,7,13,13,7,-20,13,7,13,7,13,7,13,7,-1,-2,-3,]),'DIVIDE':([1,4,10,15,16,17,18,19,20,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,],[8,14,8,8,14,8,14,8,14,8,14,14,8,-20,14,8,14,8,14,8,14,8,-1,-2,-3,]),'STRING':([9,],[23,]),'RPAREN':([10,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,],[26,-7,-5,-11,-9,-15,-13,-19,-17,35,36,37,-20,-4,-6,-8,-10,-12,-14,-16,-18,-1,-2,-3,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,3,],[1,6,]),}
+_lr_goto_items = {'statement':([0,3,5,6,7,8,9,11,12,13,14,],[1,10,15,17,19,21,25,28,30,32,34,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,9 +28,23 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
   ('statement -> PRINT LPAREN STRING RPAREN','statement',4,'p_print_statement','parsing_yacc.py',14),
-  ('statement -> NUMBER PLUS NUMBER','statement',3,'p_expression_plus','parsing_yacc.py',31),
-  ('statement -> NUMBER MINUS NUMBER','statement',3,'p_expression_minus','parsing_yacc.py',39),
-  ('statement -> NUMBER TIMES NUMBER','statement',3,'p_expression_times','parsing_yacc.py',45),
-  ('statement -> NUMBER DIVIDE NUMBER','statement',3,'p_expression_divide','parsing_yacc.py',51),
-  ('statement -> LPAREN statement RPAREN','statement',3,'p_expression_parenthesis','parsing_yacc.py',57),
+  ('statement -> PRINT LPAREN NUMBER RPAREN','statement',4,'p_print_statement','parsing_yacc.py',15),
+  ('statement -> PRINT LPAREN statement RPAREN','statement',4,'p_print_statement','parsing_yacc.py',16),
+  ('statement -> NUMBER PLUS NUMBER','statement',3,'p_expression_plus','parsing_yacc.py',33),
+  ('statement -> statement PLUS NUMBER','statement',3,'p_expression_plus','parsing_yacc.py',34),
+  ('statement -> NUMBER PLUS statement','statement',3,'p_expression_plus','parsing_yacc.py',35),
+  ('statement -> statement PLUS statement','statement',3,'p_expression_plus','parsing_yacc.py',36),
+  ('statement -> NUMBER MINUS NUMBER','statement',3,'p_expression_minus','parsing_yacc.py',44),
+  ('statement -> statement MINUS NUMBER','statement',3,'p_expression_minus','parsing_yacc.py',45),
+  ('statement -> NUMBER MINUS statement','statement',3,'p_expression_minus','parsing_yacc.py',46),
+  ('statement -> statement MINUS statement','statement',3,'p_expression_minus','parsing_yacc.py',47),
+  ('statement -> NUMBER TIMES NUMBER','statement',3,'p_expression_times','parsing_yacc.py',53),
+  ('statement -> statement TIMES NUMBER','statement',3,'p_expression_times','parsing_yacc.py',54),
+  ('statement -> NUMBER TIMES statement','statement',3,'p_expression_times','parsing_yacc.py',55),
+  ('statement -> statement TIMES statement','statement',3,'p_expression_times','parsing_yacc.py',56),
+  ('statement -> NUMBER DIVIDE NUMBER','statement',3,'p_expression_divide','parsing_yacc.py',62),
+  ('statement -> statement DIVIDE NUMBER','statement',3,'p_expression_divide','parsing_yacc.py',63),
+  ('statement -> NUMBER DIVIDE statement','statement',3,'p_expression_divide','parsing_yacc.py',64),
+  ('statement -> statement DIVIDE statement','statement',3,'p_expression_divide','parsing_yacc.py',65),
+  ('statement -> LPAREN statement RPAREN','statement',3,'p_expression_parenthesis','parsing_yacc.py',71),
 ]

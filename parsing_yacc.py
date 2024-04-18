@@ -11,7 +11,9 @@ class MyParser(object):
 
     # Handle print statements 
     def p_print_statement(self, p):
-        '''statement : PRINT LPAREN STRING RPAREN'''
+        '''statement : PRINT LPAREN STRING RPAREN 
+                     | PRINT LPAREN NUMBER RPAREN
+                     | PRINT LPAREN statement RPAREN'''
         # Based on the mode, we either want to call the C or Python print function 
         if self.mode == 'C':
             # return a print statement in C 
@@ -29,26 +31,38 @@ class MyParser(object):
     # Let's start with plus 
     def p_expression_plus(self, p):
         # addition can be done between two numbers, and expression and a number and between two expressions  
-        '''statement : NUMBER PLUS NUMBER''' 
+        '''statement : NUMBER PLUS NUMBER 
+                     | statement PLUS NUMBER
+                     | NUMBER PLUS statement
+                     | statement PLUS statement''' 
         
         output = "%s + %s" % (p[1], p[3]) 
         p[0] = output
 
     # Let's add the minus operation
     def p_expression_minus(self, p):
-        '''statement : NUMBER MINUS NUMBER''' 
+        '''statement : NUMBER MINUS NUMBER 
+                     | statement MINUS NUMBER
+                     | NUMBER MINUS statement
+                     | statement MINUS statement''' 
         output = "%s - %s" % (p[1], p[3]) 
         p[0] = output
 
     # Let's add the multiplication operation
     def p_expression_times(self, p):
-        '''statement : NUMBER TIMES NUMBER''' 
+        '''statement : NUMBER TIMES NUMBER 
+                     | statement TIMES NUMBER
+                     | NUMBER TIMES statement
+                     | statement TIMES statement''' 
         output = "%s * %s" % (p[1], p[3]) 
         p[0] = output
 
     # Let's add the division operation
     def p_expression_divide(self, p):
-        '''statement : NUMBER DIVIDE NUMBER''' 
+        '''statement : NUMBER DIVIDE NUMBER
+                     | statement DIVIDE NUMBER
+                     | NUMBER DIVIDE statement
+                     | statement DIVIDE statement''' 
         output = "%s / %s" % (p[1], p[3]) 
         p[0] = output
 
