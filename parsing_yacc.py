@@ -72,9 +72,29 @@ class MyParser(object):
         output = "(%s)" % p[2] 
         p[0] = output
 
+    # Let's handle equals equals  
+    def p_expression_equals(self, p):
+        '''statement : statement DOUBLE_EQUALS statement
+                     | NUMBER DOUBLE_EQUALS NUMBER
+                     | STRING DOUBLE_EQUALS STRING
+                     | statement DOUBLE_EQUALS NUMBER
+                     | NUMBER DOUBLE_EQUALS statement
+                     | statement DOUBLE_EQUALS STRING
+                     | STRING DOUBLE_EQUALS statement
+                     | STRING DOUBLE_EQUALS NUMBER
+                     | NUMBER DOUBLE_EQUALS STRING'''
+        output = "%s == %s" % (p[1], p[3]) 
+        p[0] = output
+
     # Handle if-statements
-
-
+    def p_if_statement(self, p):
+        '''statement : IF statement COLON statement'''
+        if self.mode == 'C':
+            output = "if (%s) {\n\t%s\n}" % (p[2], p[4])
+            p[0] = output
+        else:
+            output = "if %s:\n\t%s" % (p[2], p[4])
+            p[0] = output
 
     # Handle numpy operations
 
