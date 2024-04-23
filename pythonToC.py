@@ -77,7 +77,7 @@ def set_up_host(args, filen_name, matrix_dim):
     file.write("    cudaFree(d_output);\n")
     file.write("    free(h_input);\n")
     file.write("    free(h_output);\n\n")
-    
+    file.close();
 
 def main():
     pass
