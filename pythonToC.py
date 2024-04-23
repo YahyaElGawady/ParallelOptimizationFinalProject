@@ -21,9 +21,12 @@ def set_up(args, file_name):
 
 
 def get_var_name(var):
+    matrix_dim = 0
     for name, value in globals().items():
         if value is var:
             return name
+        if value is result:
+            matrix_dim = np.prod(result.shape)
 
 
 def numpy_add_to_c(a, b, result):
