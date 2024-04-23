@@ -66,9 +66,9 @@ def set_up_host(args, filen_name, matrix_dim):
     file.write(f"    cudaMalloc(&d_output, {matrix_dim} * {matrix_dim} * sizeof(float));\n\n")
 
     file.write(f"    cudaMemcpy(d_input, h_input, {matrix_dim} * {matrix_dim} * sizeof(float), cudaMemcpyHostToDevice);\n\n")
-    file.write("    THREADS_PER_BLOCK = 256 ;\n")
-    file.write("    BlOCKS_PER_GRID = 256 ;\n")
-    file.write("    CArraysHelper<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>(args);\n")
+    file.write(f"    THREADS_PER_BLOCK = matrix_dim;\n")
+    file.write("    BLOCKS_PER_GRID = matrix_dim;\n")
+    file.write("    ArraysHelper<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>(d_input, d_output, matrix_dim);\n")
     file.write("    cudaDeviceSynchronize();\n\n")
 
     file.write(f"    cudaMemcpy(h_output, d_output, {matrix_dim} * {matrix_dim} * sizeof(float), cudaMemcpyDeviceToHost);\n\n")
