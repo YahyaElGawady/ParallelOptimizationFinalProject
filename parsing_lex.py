@@ -27,6 +27,8 @@ class MyLexer(object):
 
     # Define the tokens that the lexer will recognize 
     tokens = [
+        'SET_UP_HOST',
+        'SET_UP',
         'PRINT', 
         'STRING',
         'COMMENT', # This is a comment token that will be ignored by the lexer
