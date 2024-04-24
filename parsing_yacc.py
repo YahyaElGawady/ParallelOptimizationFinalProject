@@ -9,6 +9,42 @@ class MyParser(object):
     # Define the tokens that the parser will recognize 
     tokens = MyLexer.tokens
 
+    #handling advanced expressions:
+
+    #handling logical AND operator
+    def p_expression_and(self, p):
+        '''statement : statement AND statement'''
+        if self.mode == 'C':
+            output = "%s && %s" % (p[1], p[3])
+        else:
+            output = "%s and %s" % (p[1], p[3])
+        p[0] = output
+
+    #handling logical OR operator
+    def p_expression_or(self, p):
+        '''statement : statement OR statement'''
+        if self.mode == 'C':
+            output = "%s || %s" % (p[1], p[3])
+        else:
+            output = "%s and %s" % (p[1], p[3])
+        p[0] = output
+
+    
+    #handling logical NOT operator
+    def p_expression_not(self, p):
+        '''statement : NOT statement'''
+        if self.mode == 'C':
+            output = "!%s" % p[2]
+        else: 
+            output = "not %s" % p[2]
+        p[0] = output
+
+    
+    #handling exponentiation 
+    
+    
+
+
     # Handle print statements 
     def p_print_statement(self, p):
         '''statement : PRINT LPAREN STRING RPAREN 
