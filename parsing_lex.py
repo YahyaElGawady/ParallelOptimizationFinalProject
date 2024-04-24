@@ -36,6 +36,10 @@ class MyLexer(object):
         'LPAREN',
         'RPAREN',
         'COLON', # This is a token that will be used to represent the colon character
+        # Add a token for a list object 
+        'LIST', 
+        # Add a token for an array object 
+        'ARRAY',
     ] + list(reserved.values())
 
     # Define the regular expressions for the tokens
@@ -51,6 +55,9 @@ class MyLexer(object):
     t_DOUBLE_EQUALS = r'=='
     t_COLON = r':'
     t_NUMBER = r'\d+'
+    t_LIST = r'\[.*?\]' 
+    # Array will come in the format np.array or numpy.array
+    t_ARRAY = r'np\.array|numpy\.array'
 
     #  Handle if statements 
     def t_IF(self, t):

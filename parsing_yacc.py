@@ -98,6 +98,23 @@ class MyParser(object):
 
     # Handle numpy operations
 
+    # Handle creating a numpy array from a list  
+    def p_numpy_array(self, p):
+        '''statement : ARRAY LPAREN LIST RPAREN'''
+        if self.mode == 'C': 
+            # Create a C array from the contents of the list 
+            # Strip the brackets from the list 
+            list_contents = p[3][1:-1] 
+            # Get the length of the list 
+            list_length = len(list_contents.split(',')) 
+            # Create a C array
+            output = "int array[%d] = {%s};" % (list_length, list_contents)
+            p[0] = output
+        else: 
+            # TODO: Call the Python function 
+            print("Converting numpy array to cupy array") 
+            pass
+
     # Create an error handler
     def p_error(self, p):
         print("Syntax error in input!")
