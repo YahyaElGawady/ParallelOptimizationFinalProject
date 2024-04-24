@@ -49,7 +49,15 @@ class MyParser(object):
             output = "%s ** %s" % (p[1], p[3])
         p[0] = output
 
-
+    
+    #handling increment operator
+    def p_expression_increment(self, p):
+        '''statement : VARIABLE INCREMENT'''
+        if self.mode == 'C':
+            output = "%s++" % p[1]
+        else:
+            output = "%s += 1" % p[1]
+        p[0] = output 
 
     
 
