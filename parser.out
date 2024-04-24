@@ -2,6 +2,7 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
+    COMMA
     COMMENT
     DEF
     ELIF
@@ -11,6 +12,10 @@ Unused terminals:
     FOR
     IN
     NONE
+    NP_ADD
+    NP_DOT_PRODUCT
+    NP_SUBTRACT
+    NP_SUM
     RANGE
     RETURN
     TRUE
@@ -55,6 +60,7 @@ Terminals, with rules where they appear
 
 ARRAY                : 31
 COLON                : 30
+COMMA                : 
 COMMENT              : 
 DEF                  : 
 DIVIDE               : 16 17 18 19
@@ -70,6 +76,10 @@ LIST                 : 31
 LPAREN               : 1 2 3 20 31
 MINUS                : 8 9 10 11
 NONE                 : 
+NP_ADD               : 
+NP_DOT_PRODUCT       : 
+NP_SUBTRACT          : 
+NP_SUM               : 
 NUMBER               : 2 4 4 5 6 8 8 9 10 12 12 13 14 16 16 17 18 22 22 24 25 28 29
 PLUS                 : 4 5 6 7
 PRINT                : 1 2 3

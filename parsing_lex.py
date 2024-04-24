@@ -40,6 +40,16 @@ class MyLexer(object):
         'LIST', 
         # Add a token for an array object 
         'ARRAY',
+        # Add a token for numpy add 
+        'NP_ADD',
+        # Add a token for numpy subtract
+        'NP_SUBTRACT',
+        # Add a token for numpy sum
+        'NP_SUM',
+        # Add a token for numpy dot product 
+        'NP_DOT_PRODUCT', 
+        # Comma 
+        'COMMA'
     ] + list(reserved.values())
 
     # Define the regular expressions for the tokens
@@ -58,6 +68,15 @@ class MyLexer(object):
     t_LIST = r'\[.*?\]' 
     # Array will come in the format np.array or numpy.array
     t_ARRAY = r'np\.array|numpy\.array'
+    # Numpy add will come in the format np.add or numpy.add
+    t_NP_ADD = r'np\.add|numpy\.add'
+    # Numpy subtract will come in the format np.subtract or numpy.subtract
+    t_NP_SUBTRACT = r'np\.subtract|numpy\.subtract'
+    # Numpy sum will come in the format np.sum or numpy.sum
+    t_NP_SUM = r'np\.sum|numpy\.sum'
+    # Numpy dot product will come in the format np.dot or numpy.dot
+    t_NP_DOT_PRODUCT = r'np\.dot|numpy\.dot'
+    t_COMMA = r','
 
     #  Handle if statements 
     def t_IF(self, t):
