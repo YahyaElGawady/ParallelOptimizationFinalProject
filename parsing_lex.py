@@ -52,6 +52,24 @@ class MyLexer(object):
         'NP_SUM',
         # Add a token for numpy dot product
         'NP_DOT_PRODUCT',
+        #Add a token for numpy sin 
+        'NP_SIN'
+        #Add a token for numpy cos
+        'NP_COS'
+        #Add a token for nump exp
+        'NP_EXP'
+        #Add a token for numpy log
+        'NP_LOG'
+        #Add a token for numpy log10
+        'NP_LOG10'
+        #Add a token for numpy sqrt
+        'NP_SQRT'
+        #Add a token for numpy power
+        'NP_POWER'
+        #Add a token for numpy abs 
+        'NP_ABS'
+        #Add a token for sign
+        'NP_SIGN'
         # Comma 
         'COMMA', 
         # Add a token for a variable
@@ -82,6 +100,24 @@ class MyLexer(object):
     t_NP_SUM = r'(?:np|numpy)\.(?:sum)'
     # Numpy dot product will come in the format np.dot or numpy.dot
     t_NP_DOT_PRODUCT = r'(?:np|numpy)\.(?:dot)'
+    #Numpy sin will come in format np.sin or numpy.sin
+    t_NP_SIN = r'(?:np|numpy)\.(?:sin)'
+    #Numpy cos will come in format np.cos or numpy.cos
+    t_NP_COS = r'(?:np|numpy)\.(?:cos)'
+    #Numpy exp will come in the format np.exp or numpy.exp
+    t_NP_EXP = r'(?:np|numpy)\.(?exp)'
+    #Numpy log will come in the format np.log or numpy.log
+    t_NP_LOG = r'(?:np|numpy)\.(?log)'
+    #Numpy log10 will come in the format np.log10 or numpy.log10
+    t_NP_LOG10 = r'(?:np|numpy)\.(?log10)'
+    #Numpy sqrt will come in format np.sqrt or numpy.sqrt
+    t_NP_SQRT = r'(?:np|numpy)\.(?sqrt)'
+    #Numpy power will come in format np.power or numpy.power
+    t_NP_POWER = r'(?:np|numpy)\.(?power)' 
+    #Numpy absolute will come in format np.abs or numpy.abs
+    t_NP_ABS = r'(?:np|numpy)\.(?abs)'
+    #Numpy sign will come in format np.sign or numpy.sign
+    t_NP_SIGN = r'(?:np|numpy)\.(?sign)'
     t_COMMA = r','
     t_VARIABLE = r'(?!np\.|numpy\.)[a-zA-Z_][a-zA-Z_0-9]*'
 
