@@ -41,7 +41,16 @@ class MyParser(object):
 
     
     #handling exponentiation 
-    
+    def p_expression_exponentiation(self, p):
+        '''statement : statement POWER statement'''
+        if self.mode == 'C':
+            output = "pow(%s, %s)" % (p[1], p[3])
+        else:
+            output = "%s ** %s" % (p[1], p[3])
+        p[0] = output
+
+
+
     
 
 
