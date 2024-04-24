@@ -60,6 +60,15 @@ class MyParser(object):
         p[0] = output 
 
     
+    #handling decrement operator
+    def p_expression_decrement(self, p):
+        '''statement : VARIABLE DECREMENT'''
+        if self.mode == 'C':
+            output = "%s--" % p[1]
+        else:
+            output = "%s -= 1" % p[1]
+        p[0] = output
+    
 
 
     # Handle print statements 
