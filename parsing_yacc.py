@@ -100,19 +100,41 @@ class MyParser(object):
 
     # Handle creating a numpy array from a list  
     def p_numpy_array(self, p):
-        '''statement : ARRAY LPAREN LIST RPAREN'''
-        if self.mode == 'C': 
-            # Create a C array from the contents of the list 
-            # Strip the brackets from the list 
-            list_contents = p[3][1:-1] 
-            # Get the length of the list 
-            list_length = len(list_contents.split(',')) 
-            # Create a C array
-            output = "int array[%d] = {%s};" % (list_length, list_contents)
+        '''statement : VARIABLE EQUALS ARRAY LPAREN LIST RPAREN'''
+        print("Creating a numpy array from a list")
+        # Iterate through p 
+        variable_name = p[1]
+        list_values_with_brackets = p[5]
+        list_values = list_values_with_brackets[1:-1]
+        length_of_list = len(list_values.split(','))
+
+        print("Variable name: %s" % variable_name)
+        print("List values: %s" % list_values)
+
+        if self.mode == 'C':
+            output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
             p[0] = output
-        else: 
+        else:
             # TODO: Call the Python function 
-            print("Converting numpy array to cupy array") 
+            print("Calling Python function")
+            pass
+
+
+    # Handle numpy add
+    def p_numpy_add(self, p):
+        '''statement : NP_ADD LPAREN statement COMMA statement RPAREN'''
+        print("Adding two numpy arrays")
+        print(p[3])
+        print(p[5])
+        if self.mode == 'C':
+            # Inputs are p[3] and p[5] 
+            # TODO: Call the C function 
+            print("Calling C function")
+            pass 
+        else:
+            # Inputs are p[3] and p[5]
+            # TODO: Call the Python function 
+            print("Calling Python function")
             pass
 
     # Create an error handler

@@ -49,7 +49,9 @@ class MyLexer(object):
         # Add a token for numpy dot product 
         'NP_DOT_PRODUCT', 
         # Comma 
-        'COMMA'
+        'COMMA', 
+        # Add a token for a variable
+        'VARIABLE'
     ] + list(reserved.values())
 
     # Define the regular expressions for the tokens
@@ -77,6 +79,7 @@ class MyLexer(object):
     # Numpy dot product will come in the format np.dot or numpy.dot
     t_NP_DOT_PRODUCT = r'np\.dot|numpy\.dot'
     t_COMMA = r','
+    t_VARIABLE = r'[a-zA-Z_][a-zA-Z0-9_]*'
 
     #  Handle if statements 
     def t_IF(self, t):
