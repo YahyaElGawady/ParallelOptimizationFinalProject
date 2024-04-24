@@ -21,6 +21,22 @@ Installing PLY can be done using pip:
 pip install ply
 ```
 
+The project also requires CuPy. First install the setup tools:
+
+```bash 
+python -m pip install -U setuptools pip
+```
+
+
+
+Then install CuPy:
+
+```bash
+
+pip install cupy-cuda12x
+
+```
+
 ## Usage
 
 Examples and instructions on how to use the project.
