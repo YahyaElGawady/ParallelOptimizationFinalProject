@@ -122,20 +122,58 @@ class MyParser(object):
 
     # Handle numpy add
     def p_numpy_add(self, p):
-        '''statement : NP_ADD LPAREN statement COMMA statement RPAREN'''
+        '''statement : VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN'''
         print("Adding two numpy arrays")
-        print(p[3])
-        print(p[5])
-        if self.mode == 'C':
-            # Inputs are p[3] and p[5] 
+        # The inputs are p[5] and p[7]
+        if self.mode == 'C': 
             # TODO: Call the C function 
             print("Calling C function")
             pass 
         else:
-            # Inputs are p[3] and p[5]
             # TODO: Call the Python function 
             print("Calling Python function")
             pass
+
+    # Handle numpy subtract
+    def p_numpy_subtract(self, p):
+        '''statement : VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN'''
+        print("Subtracting two numpy arrays")
+        # Inputs are p[5] and p[7]
+        if self.mode == 'C':
+            # TODO: Call the C function
+            print("Calling C function")
+            pass
+        else:
+            # TODO: Call the Python function
+            print("Calling Python function")
+            pass
+
+    # Handle numpy sum
+    def p_numpy_sum(self, p):
+        '''statement : VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN'''
+        print("Summing a numpy array")
+        # Input is p[5]
+        if self.mode == 'C':
+            # TODO: Call the C function
+            print("Calling C function")
+            pass
+        else:
+            # TODO: Call the Python function
+            print("Calling Python function")
+            pass
+
+    # Handle numpy dot product
+    def p_numpy_dot_product(self, p):
+        '''statement : VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN'''
+        print("Taking the dot product of two numpy arrays")
+        # Inputs are p[5] and p[7]
+        if self.mode == 'C':
+            # TODO: Call the C function
+            print("Calling C function")
+            pass
+        else:
+            # TODO: Call the Python function
+            print("Calling Python function")
 
     # Create an error handler
     def p_error(self, p):

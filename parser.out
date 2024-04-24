@@ -13,9 +13,6 @@ Unused terminals:
     IN
     NONE
     NOT
-    NP_DOT_PRODUCT
-    NP_SUBTRACT
-    NP_SUM
     OR
     RANGE
     RETURN
@@ -56,7 +53,10 @@ Rule 28    statement -> STRING DOUBLE_EQUALS NUMBER
 Rule 29    statement -> NUMBER DOUBLE_EQUALS STRING
 Rule 30    statement -> IF statement COLON statement
 Rule 31    statement -> VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-Rule 32    statement -> NP_ADD LPAREN statement COMMA statement RPAREN
+Rule 32    statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+Rule 33    statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+Rule 34    statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+Rule 35    statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
 Terminals, with rules where they appear
 
@@ -64,44 +64,44 @@ AND                  :
 ARRAY                : 31
 BREAK                : 
 COLON                : 30
-COMMA                : 32
+COMMA                : 32 33 35
 COMMENT              : 
 DEF                  : 
 DIVIDE               : 16 17 18 19
 DOUBLE_EQUALS        : 21 22 23 24 25 26 27 28 29
 ELIF                 : 
 ELSE                 : 
-EQUALS               : 31
+EQUALS               : 31 32 33 34 35
 FALSE                : 
 FOR                  : 
 IF                   : 30
 IN                   : 
 LIST                 : 31
-LPAREN               : 1 2 3 20 31 32
+LPAREN               : 1 2 3 20 31 32 33 34 35
 MINUS                : 8 9 10 11
 NONE                 : 
 NOT                  : 
 NP_ADD               : 32
-NP_DOT_PRODUCT       : 
-NP_SUBTRACT          : 
-NP_SUM               : 
+NP_DOT_PRODUCT       : 35
+NP_SUBTRACT          : 33
+NP_SUM               : 34
 NUMBER               : 2 4 4 5 6 8 8 9 10 12 12 13 14 16 16 17 18 22 22 24 25 28 29
 OR                   : 
 PLUS                 : 4 5 6 7
 PRINT                : 1 2 3
 RANGE                : 
 RETURN               : 
-RPAREN               : 1 2 3 20 31 32
+RPAREN               : 1 2 3 20 31 32 33 34 35
 STRING               : 1 23 23 26 27 28 29
 TIMES                : 12 13 14 15
 TRUE                 : 
-VARIABLE             : 31
+VARIABLE             : 31 32 32 32 33 33 33 34 34 35 35 35
 WHILE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-statement            : 3 5 6 7 7 9 10 11 11 13 14 15 15 17 18 19 19 20 21 21 24 25 26 27 30 30 32 32 0
+statement            : 3 5 6 7 7 9 10 11 11 13 14 15 15 17 18 19 19 20 21 21 24 25 26 27 30 30 0
 
 Parsing method: LALR
 
@@ -139,7 +139,10 @@ state 0
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
     PRINT           shift and go to state 2
     NUMBER          shift and go to state 5
@@ -147,7 +150,6 @@ state 0
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
     statement                      shift and go to state 1
 
@@ -166,11 +168,11 @@ state 1
     (24) statement -> statement . DOUBLE_EQUALS NUMBER
     (26) statement -> statement . DOUBLE_EQUALS STRING
 
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
 
 state 2
@@ -179,7 +181,7 @@ state 2
     (2) statement -> PRINT . LPAREN NUMBER RPAREN
     (3) statement -> PRINT . LPAREN statement RPAREN
 
-    LPAREN          shift and go to state 14
+    LPAREN          shift and go to state 13
 
 
 state 3
@@ -216,7 +218,10 @@ state 3
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
     PRINT           shift and go to state 2
     NUMBER          shift and go to state 5
@@ -224,9 +229,8 @@ state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 15
+    statement                      shift and go to state 14
 
 state 4
 
@@ -234,7 +238,7 @@ state 4
     (27) statement -> STRING . DOUBLE_EQUALS statement
     (28) statement -> STRING . DOUBLE_EQUALS NUMBER
 
-    DOUBLE_EQUALS   shift and go to state 16
+    DOUBLE_EQUALS   shift and go to state 15
 
 
 state 5
@@ -251,11 +255,11 @@ state 5
     (25) statement -> NUMBER . DOUBLE_EQUALS statement
     (29) statement -> NUMBER . DOUBLE_EQUALS STRING
 
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
 
 state 6
@@ -292,7 +296,10 @@ state 6
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
     PRINT           shift and go to state 2
     NUMBER          shift and go to state 5
@@ -300,25 +307,21 @@ state 6
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 22
+    statement                      shift and go to state 21
 
 state 7
 
     (31) statement -> VARIABLE . EQUALS ARRAY LPAREN LIST RPAREN
+    (32) statement -> VARIABLE . EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> VARIABLE . EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> VARIABLE . EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> VARIABLE . EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    EQUALS          shift and go to state 23
+    EQUALS          shift and go to state 22
 
 
 state 8
-
-    (32) statement -> NP_ADD . LPAREN statement COMMA statement RPAREN
-
-    LPAREN          shift and go to state 24
-
-
-state 9
 
     (5) statement -> statement PLUS . NUMBER
     (7) statement -> statement PLUS . statement
@@ -353,19 +356,21 @@ state 9
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 26
+    NUMBER          shift and go to state 24
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 25
+    statement                      shift and go to state 23
 
-state 10
+state 9
 
     (9) statement -> statement MINUS . NUMBER
     (11) statement -> statement MINUS . statement
@@ -400,19 +405,21 @@ state 10
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 28
+    NUMBER          shift and go to state 26
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 27
+    statement                      shift and go to state 25
 
-state 11
+state 10
 
     (13) statement -> statement TIMES . NUMBER
     (15) statement -> statement TIMES . statement
@@ -447,19 +454,21 @@ state 11
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 30
+    NUMBER          shift and go to state 28
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 29
+    statement                      shift and go to state 27
 
-state 12
+state 11
 
     (17) statement -> statement DIVIDE . NUMBER
     (19) statement -> statement DIVIDE . statement
@@ -494,19 +503,21 @@ state 12
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 32
+    NUMBER          shift and go to state 30
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 31
+    statement                      shift and go to state 29
 
-state 13
+state 12
 
     (21) statement -> statement DOUBLE_EQUALS . statement
     (24) statement -> statement DOUBLE_EQUALS . NUMBER
@@ -542,19 +553,21 @@ state 13
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 34
-    STRING          shift and go to state 35
+    NUMBER          shift and go to state 32
+    STRING          shift and go to state 33
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 33
+    statement                      shift and go to state 31
 
-state 14
+state 13
 
     (1) statement -> PRINT LPAREN . STRING RPAREN
     (2) statement -> PRINT LPAREN . NUMBER RPAREN
@@ -590,19 +603,21 @@ state 14
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    STRING          shift and go to state 36
-    NUMBER          shift and go to state 37
+    STRING          shift and go to state 34
+    NUMBER          shift and go to state 35
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 38
+    statement                      shift and go to state 36
 
-state 15
+state 14
 
     (20) statement -> LPAREN statement . RPAREN
     (5) statement -> statement . PLUS NUMBER
@@ -617,15 +632,15 @@ state 15
     (24) statement -> statement . DOUBLE_EQUALS NUMBER
     (26) statement -> statement . DOUBLE_EQUALS STRING
 
-    RPAREN          shift and go to state 39
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    RPAREN          shift and go to state 37
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
 
-state 16
+state 15
 
     (23) statement -> STRING DOUBLE_EQUALS . STRING
     (27) statement -> STRING DOUBLE_EQUALS . statement
@@ -661,19 +676,21 @@ state 16
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    STRING          shift and go to state 40
-    NUMBER          shift and go to state 42
+    STRING          shift and go to state 38
+    NUMBER          shift and go to state 40
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 41
+    statement                      shift and go to state 39
 
-state 17
+state 16
 
     (4) statement -> NUMBER PLUS . NUMBER
     (6) statement -> NUMBER PLUS . statement
@@ -708,19 +725,21 @@ state 17
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 43
+    NUMBER          shift and go to state 41
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 44
+    statement                      shift and go to state 42
 
-state 18
+state 17
 
     (8) statement -> NUMBER MINUS . NUMBER
     (10) statement -> NUMBER MINUS . statement
@@ -755,19 +774,21 @@ state 18
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 45
+    NUMBER          shift and go to state 43
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 46
+    statement                      shift and go to state 44
 
-state 19
+state 18
 
     (12) statement -> NUMBER TIMES . NUMBER
     (14) statement -> NUMBER TIMES . statement
@@ -802,19 +823,21 @@ state 19
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 47
+    NUMBER          shift and go to state 45
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 48
+    statement                      shift and go to state 46
 
-state 20
+state 19
 
     (16) statement -> NUMBER DIVIDE . NUMBER
     (18) statement -> NUMBER DIVIDE . statement
@@ -849,19 +872,21 @@ state 20
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 49
+    NUMBER          shift and go to state 47
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 50
+    statement                      shift and go to state 48
 
-state 21
+state 20
 
     (22) statement -> NUMBER DOUBLE_EQUALS . NUMBER
     (25) statement -> NUMBER DOUBLE_EQUALS . statement
@@ -897,19 +922,21 @@ state 21
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
-    NUMBER          shift and go to state 51
-    STRING          shift and go to state 53
+    NUMBER          shift and go to state 49
+    STRING          shift and go to state 51
     PRINT           shift and go to state 2
     LPAREN          shift and go to state 3
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 52
+    statement                      shift and go to state 50
 
-state 22
+state 21
 
     (30) statement -> IF statement . COLON statement
     (5) statement -> statement . PLUS NUMBER
@@ -924,68 +951,30 @@ state 22
     (24) statement -> statement . DOUBLE_EQUALS NUMBER
     (26) statement -> statement . DOUBLE_EQUALS STRING
 
-    COLON           shift and go to state 54
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    COLON           shift and go to state 52
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
+
+
+state 22
+
+    (31) statement -> VARIABLE EQUALS . ARRAY LPAREN LIST RPAREN
+    (32) statement -> VARIABLE EQUALS . NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> VARIABLE EQUALS . NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> VARIABLE EQUALS . NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> VARIABLE EQUALS . NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+
+    ARRAY           shift and go to state 53
+    NP_ADD          shift and go to state 54
+    NP_SUBTRACT     shift and go to state 55
+    NP_SUM          shift and go to state 56
+    NP_DOT_PRODUCT  shift and go to state 57
 
 
 state 23
-
-    (31) statement -> VARIABLE EQUALS . ARRAY LPAREN LIST RPAREN
-
-    ARRAY           shift and go to state 55
-
-
-state 24
-
-    (32) statement -> NP_ADD LPAREN . statement COMMA statement RPAREN
-    (1) statement -> . PRINT LPAREN STRING RPAREN
-    (2) statement -> . PRINT LPAREN NUMBER RPAREN
-    (3) statement -> . PRINT LPAREN statement RPAREN
-    (4) statement -> . NUMBER PLUS NUMBER
-    (5) statement -> . statement PLUS NUMBER
-    (6) statement -> . NUMBER PLUS statement
-    (7) statement -> . statement PLUS statement
-    (8) statement -> . NUMBER MINUS NUMBER
-    (9) statement -> . statement MINUS NUMBER
-    (10) statement -> . NUMBER MINUS statement
-    (11) statement -> . statement MINUS statement
-    (12) statement -> . NUMBER TIMES NUMBER
-    (13) statement -> . statement TIMES NUMBER
-    (14) statement -> . NUMBER TIMES statement
-    (15) statement -> . statement TIMES statement
-    (16) statement -> . NUMBER DIVIDE NUMBER
-    (17) statement -> . statement DIVIDE NUMBER
-    (18) statement -> . NUMBER DIVIDE statement
-    (19) statement -> . statement DIVIDE statement
-    (20) statement -> . LPAREN statement RPAREN
-    (21) statement -> . statement DOUBLE_EQUALS statement
-    (22) statement -> . NUMBER DOUBLE_EQUALS NUMBER
-    (23) statement -> . STRING DOUBLE_EQUALS STRING
-    (24) statement -> . statement DOUBLE_EQUALS NUMBER
-    (25) statement -> . NUMBER DOUBLE_EQUALS statement
-    (26) statement -> . statement DOUBLE_EQUALS STRING
-    (27) statement -> . STRING DOUBLE_EQUALS statement
-    (28) statement -> . STRING DOUBLE_EQUALS NUMBER
-    (29) statement -> . NUMBER DOUBLE_EQUALS STRING
-    (30) statement -> . IF statement COLON statement
-    (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
-
-    PRINT           shift and go to state 2
-    NUMBER          shift and go to state 5
-    LPAREN          shift and go to state 3
-    STRING          shift and go to state 4
-    IF              shift and go to state 6
-    VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
-
-    statement                      shift and go to state 56
-
-state 25
 
     (7) statement -> statement PLUS statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1008,12 +997,11 @@ state 25
     $end            reduce using rule 7 (statement -> statement PLUS statement .)
     RPAREN          reduce using rule 7 (statement -> statement PLUS statement .)
     COLON           reduce using rule 7 (statement -> statement PLUS statement .)
-    COMMA           reduce using rule 7 (statement -> statement PLUS statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 7 (statement -> statement PLUS statement .) ]
   ! MINUS           [ reduce using rule 7 (statement -> statement PLUS statement .) ]
@@ -1022,7 +1010,7 @@ state 25
   ! DOUBLE_EQUALS   [ reduce using rule 7 (statement -> statement PLUS statement .) ]
 
 
-state 26
+state 24
 
     (5) statement -> statement PLUS NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1045,12 +1033,11 @@ state 26
     $end            reduce using rule 5 (statement -> statement PLUS NUMBER .)
     RPAREN          reduce using rule 5 (statement -> statement PLUS NUMBER .)
     COLON           reduce using rule 5 (statement -> statement PLUS NUMBER .)
-    COMMA           reduce using rule 5 (statement -> statement PLUS NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 5 (statement -> statement PLUS NUMBER .) ]
   ! MINUS           [ reduce using rule 5 (statement -> statement PLUS NUMBER .) ]
@@ -1059,7 +1046,7 @@ state 26
   ! DOUBLE_EQUALS   [ reduce using rule 5 (statement -> statement PLUS NUMBER .) ]
 
 
-state 27
+state 25
 
     (11) statement -> statement MINUS statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1082,12 +1069,11 @@ state 27
     $end            reduce using rule 11 (statement -> statement MINUS statement .)
     RPAREN          reduce using rule 11 (statement -> statement MINUS statement .)
     COLON           reduce using rule 11 (statement -> statement MINUS statement .)
-    COMMA           reduce using rule 11 (statement -> statement MINUS statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 11 (statement -> statement MINUS statement .) ]
   ! MINUS           [ reduce using rule 11 (statement -> statement MINUS statement .) ]
@@ -1096,7 +1082,7 @@ state 27
   ! DOUBLE_EQUALS   [ reduce using rule 11 (statement -> statement MINUS statement .) ]
 
 
-state 28
+state 26
 
     (9) statement -> statement MINUS NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1119,12 +1105,11 @@ state 28
     $end            reduce using rule 9 (statement -> statement MINUS NUMBER .)
     RPAREN          reduce using rule 9 (statement -> statement MINUS NUMBER .)
     COLON           reduce using rule 9 (statement -> statement MINUS NUMBER .)
-    COMMA           reduce using rule 9 (statement -> statement MINUS NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 9 (statement -> statement MINUS NUMBER .) ]
   ! MINUS           [ reduce using rule 9 (statement -> statement MINUS NUMBER .) ]
@@ -1133,7 +1118,7 @@ state 28
   ! DOUBLE_EQUALS   [ reduce using rule 9 (statement -> statement MINUS NUMBER .) ]
 
 
-state 29
+state 27
 
     (15) statement -> statement TIMES statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1156,12 +1141,11 @@ state 29
     $end            reduce using rule 15 (statement -> statement TIMES statement .)
     RPAREN          reduce using rule 15 (statement -> statement TIMES statement .)
     COLON           reduce using rule 15 (statement -> statement TIMES statement .)
-    COMMA           reduce using rule 15 (statement -> statement TIMES statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 15 (statement -> statement TIMES statement .) ]
   ! MINUS           [ reduce using rule 15 (statement -> statement TIMES statement .) ]
@@ -1170,7 +1154,7 @@ state 29
   ! DOUBLE_EQUALS   [ reduce using rule 15 (statement -> statement TIMES statement .) ]
 
 
-state 30
+state 28
 
     (13) statement -> statement TIMES NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1193,12 +1177,11 @@ state 30
     $end            reduce using rule 13 (statement -> statement TIMES NUMBER .)
     RPAREN          reduce using rule 13 (statement -> statement TIMES NUMBER .)
     COLON           reduce using rule 13 (statement -> statement TIMES NUMBER .)
-    COMMA           reduce using rule 13 (statement -> statement TIMES NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 13 (statement -> statement TIMES NUMBER .) ]
   ! MINUS           [ reduce using rule 13 (statement -> statement TIMES NUMBER .) ]
@@ -1207,7 +1190,7 @@ state 30
   ! DOUBLE_EQUALS   [ reduce using rule 13 (statement -> statement TIMES NUMBER .) ]
 
 
-state 31
+state 29
 
     (19) statement -> statement DIVIDE statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1230,12 +1213,11 @@ state 31
     $end            reduce using rule 19 (statement -> statement DIVIDE statement .)
     RPAREN          reduce using rule 19 (statement -> statement DIVIDE statement .)
     COLON           reduce using rule 19 (statement -> statement DIVIDE statement .)
-    COMMA           reduce using rule 19 (statement -> statement DIVIDE statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 19 (statement -> statement DIVIDE statement .) ]
   ! MINUS           [ reduce using rule 19 (statement -> statement DIVIDE statement .) ]
@@ -1244,7 +1226,7 @@ state 31
   ! DOUBLE_EQUALS   [ reduce using rule 19 (statement -> statement DIVIDE statement .) ]
 
 
-state 32
+state 30
 
     (17) statement -> statement DIVIDE NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1267,12 +1249,11 @@ state 32
     $end            reduce using rule 17 (statement -> statement DIVIDE NUMBER .)
     RPAREN          reduce using rule 17 (statement -> statement DIVIDE NUMBER .)
     COLON           reduce using rule 17 (statement -> statement DIVIDE NUMBER .)
-    COMMA           reduce using rule 17 (statement -> statement DIVIDE NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 17 (statement -> statement DIVIDE NUMBER .) ]
   ! MINUS           [ reduce using rule 17 (statement -> statement DIVIDE NUMBER .) ]
@@ -1281,7 +1262,7 @@ state 32
   ! DOUBLE_EQUALS   [ reduce using rule 17 (statement -> statement DIVIDE NUMBER .) ]
 
 
-state 33
+state 31
 
     (21) statement -> statement DOUBLE_EQUALS statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1304,12 +1285,11 @@ state 33
     $end            reduce using rule 21 (statement -> statement DOUBLE_EQUALS statement .)
     RPAREN          reduce using rule 21 (statement -> statement DOUBLE_EQUALS statement .)
     COLON           reduce using rule 21 (statement -> statement DOUBLE_EQUALS statement .)
-    COMMA           reduce using rule 21 (statement -> statement DOUBLE_EQUALS statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 21 (statement -> statement DOUBLE_EQUALS statement .) ]
   ! MINUS           [ reduce using rule 21 (statement -> statement DOUBLE_EQUALS statement .) ]
@@ -1318,7 +1298,7 @@ state 33
   ! DOUBLE_EQUALS   [ reduce using rule 21 (statement -> statement DOUBLE_EQUALS statement .) ]
 
 
-state 34
+state 32
 
     (24) statement -> statement DOUBLE_EQUALS NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1341,12 +1321,11 @@ state 34
     $end            reduce using rule 24 (statement -> statement DOUBLE_EQUALS NUMBER .)
     RPAREN          reduce using rule 24 (statement -> statement DOUBLE_EQUALS NUMBER .)
     COLON           reduce using rule 24 (statement -> statement DOUBLE_EQUALS NUMBER .)
-    COMMA           reduce using rule 24 (statement -> statement DOUBLE_EQUALS NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 24 (statement -> statement DOUBLE_EQUALS NUMBER .) ]
   ! MINUS           [ reduce using rule 24 (statement -> statement DOUBLE_EQUALS NUMBER .) ]
@@ -1355,7 +1334,7 @@ state 34
   ! DOUBLE_EQUALS   [ reduce using rule 24 (statement -> statement DOUBLE_EQUALS NUMBER .) ]
 
 
-state 35
+state 33
 
     (26) statement -> statement DOUBLE_EQUALS STRING .
     (23) statement -> STRING . DOUBLE_EQUALS STRING
@@ -1370,24 +1349,23 @@ state 35
     $end            reduce using rule 26 (statement -> statement DOUBLE_EQUALS STRING .)
     RPAREN          reduce using rule 26 (statement -> statement DOUBLE_EQUALS STRING .)
     COLON           reduce using rule 26 (statement -> statement DOUBLE_EQUALS STRING .)
-    COMMA           reduce using rule 26 (statement -> statement DOUBLE_EQUALS STRING .)
-    DOUBLE_EQUALS   shift and go to state 16
+    DOUBLE_EQUALS   shift and go to state 15
 
   ! DOUBLE_EQUALS   [ reduce using rule 26 (statement -> statement DOUBLE_EQUALS STRING .) ]
 
 
-state 36
+state 34
 
     (1) statement -> PRINT LPAREN STRING . RPAREN
     (23) statement -> STRING . DOUBLE_EQUALS STRING
     (27) statement -> STRING . DOUBLE_EQUALS statement
     (28) statement -> STRING . DOUBLE_EQUALS NUMBER
 
-    RPAREN          shift and go to state 57
-    DOUBLE_EQUALS   shift and go to state 16
+    RPAREN          shift and go to state 58
+    DOUBLE_EQUALS   shift and go to state 15
 
 
-state 37
+state 35
 
     (2) statement -> PRINT LPAREN NUMBER . RPAREN
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1402,15 +1380,15 @@ state 37
     (25) statement -> NUMBER . DOUBLE_EQUALS statement
     (29) statement -> NUMBER . DOUBLE_EQUALS STRING
 
-    RPAREN          shift and go to state 58
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    RPAREN          shift and go to state 59
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
 
-state 38
+state 36
 
     (3) statement -> PRINT LPAREN statement . RPAREN
     (5) statement -> statement . PLUS NUMBER
@@ -1425,15 +1403,15 @@ state 38
     (24) statement -> statement . DOUBLE_EQUALS NUMBER
     (26) statement -> statement . DOUBLE_EQUALS STRING
 
-    RPAREN          shift and go to state 59
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    RPAREN          shift and go to state 60
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
 
-state 39
+state 37
 
     (20) statement -> LPAREN statement RPAREN .
 
@@ -1445,10 +1423,9 @@ state 39
     $end            reduce using rule 20 (statement -> LPAREN statement RPAREN .)
     RPAREN          reduce using rule 20 (statement -> LPAREN statement RPAREN .)
     COLON           reduce using rule 20 (statement -> LPAREN statement RPAREN .)
-    COMMA           reduce using rule 20 (statement -> LPAREN statement RPAREN .)
 
 
-state 40
+state 38
 
     (23) statement -> STRING DOUBLE_EQUALS STRING .
     (23) statement -> STRING . DOUBLE_EQUALS STRING
@@ -1463,13 +1440,12 @@ state 40
     $end            reduce using rule 23 (statement -> STRING DOUBLE_EQUALS STRING .)
     RPAREN          reduce using rule 23 (statement -> STRING DOUBLE_EQUALS STRING .)
     COLON           reduce using rule 23 (statement -> STRING DOUBLE_EQUALS STRING .)
-    COMMA           reduce using rule 23 (statement -> STRING DOUBLE_EQUALS STRING .)
-    DOUBLE_EQUALS   shift and go to state 16
+    DOUBLE_EQUALS   shift and go to state 15
 
   ! DOUBLE_EQUALS   [ reduce using rule 23 (statement -> STRING DOUBLE_EQUALS STRING .) ]
 
 
-state 41
+state 39
 
     (27) statement -> STRING DOUBLE_EQUALS statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1492,12 +1468,11 @@ state 41
     $end            reduce using rule 27 (statement -> STRING DOUBLE_EQUALS statement .)
     RPAREN          reduce using rule 27 (statement -> STRING DOUBLE_EQUALS statement .)
     COLON           reduce using rule 27 (statement -> STRING DOUBLE_EQUALS statement .)
-    COMMA           reduce using rule 27 (statement -> STRING DOUBLE_EQUALS statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 27 (statement -> STRING DOUBLE_EQUALS statement .) ]
   ! MINUS           [ reduce using rule 27 (statement -> STRING DOUBLE_EQUALS statement .) ]
@@ -1506,7 +1481,7 @@ state 41
   ! DOUBLE_EQUALS   [ reduce using rule 27 (statement -> STRING DOUBLE_EQUALS statement .) ]
 
 
-state 42
+state 40
 
     (28) statement -> STRING DOUBLE_EQUALS NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1529,12 +1504,11 @@ state 42
     $end            reduce using rule 28 (statement -> STRING DOUBLE_EQUALS NUMBER .)
     RPAREN          reduce using rule 28 (statement -> STRING DOUBLE_EQUALS NUMBER .)
     COLON           reduce using rule 28 (statement -> STRING DOUBLE_EQUALS NUMBER .)
-    COMMA           reduce using rule 28 (statement -> STRING DOUBLE_EQUALS NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 28 (statement -> STRING DOUBLE_EQUALS NUMBER .) ]
   ! MINUS           [ reduce using rule 28 (statement -> STRING DOUBLE_EQUALS NUMBER .) ]
@@ -1543,7 +1517,7 @@ state 42
   ! DOUBLE_EQUALS   [ reduce using rule 28 (statement -> STRING DOUBLE_EQUALS NUMBER .) ]
 
 
-state 43
+state 41
 
     (4) statement -> NUMBER PLUS NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1566,12 +1540,11 @@ state 43
     $end            reduce using rule 4 (statement -> NUMBER PLUS NUMBER .)
     RPAREN          reduce using rule 4 (statement -> NUMBER PLUS NUMBER .)
     COLON           reduce using rule 4 (statement -> NUMBER PLUS NUMBER .)
-    COMMA           reduce using rule 4 (statement -> NUMBER PLUS NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 4 (statement -> NUMBER PLUS NUMBER .) ]
   ! MINUS           [ reduce using rule 4 (statement -> NUMBER PLUS NUMBER .) ]
@@ -1580,7 +1553,7 @@ state 43
   ! DOUBLE_EQUALS   [ reduce using rule 4 (statement -> NUMBER PLUS NUMBER .) ]
 
 
-state 44
+state 42
 
     (6) statement -> NUMBER PLUS statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1603,12 +1576,11 @@ state 44
     $end            reduce using rule 6 (statement -> NUMBER PLUS statement .)
     RPAREN          reduce using rule 6 (statement -> NUMBER PLUS statement .)
     COLON           reduce using rule 6 (statement -> NUMBER PLUS statement .)
-    COMMA           reduce using rule 6 (statement -> NUMBER PLUS statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 6 (statement -> NUMBER PLUS statement .) ]
   ! MINUS           [ reduce using rule 6 (statement -> NUMBER PLUS statement .) ]
@@ -1617,7 +1589,7 @@ state 44
   ! DOUBLE_EQUALS   [ reduce using rule 6 (statement -> NUMBER PLUS statement .) ]
 
 
-state 45
+state 43
 
     (8) statement -> NUMBER MINUS NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1640,12 +1612,11 @@ state 45
     $end            reduce using rule 8 (statement -> NUMBER MINUS NUMBER .)
     RPAREN          reduce using rule 8 (statement -> NUMBER MINUS NUMBER .)
     COLON           reduce using rule 8 (statement -> NUMBER MINUS NUMBER .)
-    COMMA           reduce using rule 8 (statement -> NUMBER MINUS NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 8 (statement -> NUMBER MINUS NUMBER .) ]
   ! MINUS           [ reduce using rule 8 (statement -> NUMBER MINUS NUMBER .) ]
@@ -1654,7 +1625,7 @@ state 45
   ! DOUBLE_EQUALS   [ reduce using rule 8 (statement -> NUMBER MINUS NUMBER .) ]
 
 
-state 46
+state 44
 
     (10) statement -> NUMBER MINUS statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1677,12 +1648,11 @@ state 46
     $end            reduce using rule 10 (statement -> NUMBER MINUS statement .)
     RPAREN          reduce using rule 10 (statement -> NUMBER MINUS statement .)
     COLON           reduce using rule 10 (statement -> NUMBER MINUS statement .)
-    COMMA           reduce using rule 10 (statement -> NUMBER MINUS statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 10 (statement -> NUMBER MINUS statement .) ]
   ! MINUS           [ reduce using rule 10 (statement -> NUMBER MINUS statement .) ]
@@ -1691,7 +1661,7 @@ state 46
   ! DOUBLE_EQUALS   [ reduce using rule 10 (statement -> NUMBER MINUS statement .) ]
 
 
-state 47
+state 45
 
     (12) statement -> NUMBER TIMES NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1714,12 +1684,11 @@ state 47
     $end            reduce using rule 12 (statement -> NUMBER TIMES NUMBER .)
     RPAREN          reduce using rule 12 (statement -> NUMBER TIMES NUMBER .)
     COLON           reduce using rule 12 (statement -> NUMBER TIMES NUMBER .)
-    COMMA           reduce using rule 12 (statement -> NUMBER TIMES NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 12 (statement -> NUMBER TIMES NUMBER .) ]
   ! MINUS           [ reduce using rule 12 (statement -> NUMBER TIMES NUMBER .) ]
@@ -1728,7 +1697,7 @@ state 47
   ! DOUBLE_EQUALS   [ reduce using rule 12 (statement -> NUMBER TIMES NUMBER .) ]
 
 
-state 48
+state 46
 
     (14) statement -> NUMBER TIMES statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1751,12 +1720,11 @@ state 48
     $end            reduce using rule 14 (statement -> NUMBER TIMES statement .)
     RPAREN          reduce using rule 14 (statement -> NUMBER TIMES statement .)
     COLON           reduce using rule 14 (statement -> NUMBER TIMES statement .)
-    COMMA           reduce using rule 14 (statement -> NUMBER TIMES statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 14 (statement -> NUMBER TIMES statement .) ]
   ! MINUS           [ reduce using rule 14 (statement -> NUMBER TIMES statement .) ]
@@ -1765,7 +1733,7 @@ state 48
   ! DOUBLE_EQUALS   [ reduce using rule 14 (statement -> NUMBER TIMES statement .) ]
 
 
-state 49
+state 47
 
     (16) statement -> NUMBER DIVIDE NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1788,12 +1756,11 @@ state 49
     $end            reduce using rule 16 (statement -> NUMBER DIVIDE NUMBER .)
     RPAREN          reduce using rule 16 (statement -> NUMBER DIVIDE NUMBER .)
     COLON           reduce using rule 16 (statement -> NUMBER DIVIDE NUMBER .)
-    COMMA           reduce using rule 16 (statement -> NUMBER DIVIDE NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 16 (statement -> NUMBER DIVIDE NUMBER .) ]
   ! MINUS           [ reduce using rule 16 (statement -> NUMBER DIVIDE NUMBER .) ]
@@ -1802,7 +1769,7 @@ state 49
   ! DOUBLE_EQUALS   [ reduce using rule 16 (statement -> NUMBER DIVIDE NUMBER .) ]
 
 
-state 50
+state 48
 
     (18) statement -> NUMBER DIVIDE statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1825,12 +1792,11 @@ state 50
     $end            reduce using rule 18 (statement -> NUMBER DIVIDE statement .)
     RPAREN          reduce using rule 18 (statement -> NUMBER DIVIDE statement .)
     COLON           reduce using rule 18 (statement -> NUMBER DIVIDE statement .)
-    COMMA           reduce using rule 18 (statement -> NUMBER DIVIDE statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 18 (statement -> NUMBER DIVIDE statement .) ]
   ! MINUS           [ reduce using rule 18 (statement -> NUMBER DIVIDE statement .) ]
@@ -1839,7 +1805,7 @@ state 50
   ! DOUBLE_EQUALS   [ reduce using rule 18 (statement -> NUMBER DIVIDE statement .) ]
 
 
-state 51
+state 49
 
     (22) statement -> NUMBER DOUBLE_EQUALS NUMBER .
     (4) statement -> NUMBER . PLUS NUMBER
@@ -1862,12 +1828,11 @@ state 51
     $end            reduce using rule 22 (statement -> NUMBER DOUBLE_EQUALS NUMBER .)
     RPAREN          reduce using rule 22 (statement -> NUMBER DOUBLE_EQUALS NUMBER .)
     COLON           reduce using rule 22 (statement -> NUMBER DOUBLE_EQUALS NUMBER .)
-    COMMA           reduce using rule 22 (statement -> NUMBER DOUBLE_EQUALS NUMBER .)
-    PLUS            shift and go to state 17
-    MINUS           shift and go to state 18
-    TIMES           shift and go to state 19
-    DIVIDE          shift and go to state 20
-    DOUBLE_EQUALS   shift and go to state 21
+    PLUS            shift and go to state 16
+    MINUS           shift and go to state 17
+    TIMES           shift and go to state 18
+    DIVIDE          shift and go to state 19
+    DOUBLE_EQUALS   shift and go to state 20
 
   ! PLUS            [ reduce using rule 22 (statement -> NUMBER DOUBLE_EQUALS NUMBER .) ]
   ! MINUS           [ reduce using rule 22 (statement -> NUMBER DOUBLE_EQUALS NUMBER .) ]
@@ -1876,7 +1841,7 @@ state 51
   ! DOUBLE_EQUALS   [ reduce using rule 22 (statement -> NUMBER DOUBLE_EQUALS NUMBER .) ]
 
 
-state 52
+state 50
 
     (25) statement -> NUMBER DOUBLE_EQUALS statement .
     (5) statement -> statement . PLUS NUMBER
@@ -1899,12 +1864,11 @@ state 52
     $end            reduce using rule 25 (statement -> NUMBER DOUBLE_EQUALS statement .)
     RPAREN          reduce using rule 25 (statement -> NUMBER DOUBLE_EQUALS statement .)
     COLON           reduce using rule 25 (statement -> NUMBER DOUBLE_EQUALS statement .)
-    COMMA           reduce using rule 25 (statement -> NUMBER DOUBLE_EQUALS statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 25 (statement -> NUMBER DOUBLE_EQUALS statement .) ]
   ! MINUS           [ reduce using rule 25 (statement -> NUMBER DOUBLE_EQUALS statement .) ]
@@ -1913,7 +1877,7 @@ state 52
   ! DOUBLE_EQUALS   [ reduce using rule 25 (statement -> NUMBER DOUBLE_EQUALS statement .) ]
 
 
-state 53
+state 51
 
     (29) statement -> NUMBER DOUBLE_EQUALS STRING .
     (23) statement -> STRING . DOUBLE_EQUALS STRING
@@ -1928,13 +1892,12 @@ state 53
     $end            reduce using rule 29 (statement -> NUMBER DOUBLE_EQUALS STRING .)
     RPAREN          reduce using rule 29 (statement -> NUMBER DOUBLE_EQUALS STRING .)
     COLON           reduce using rule 29 (statement -> NUMBER DOUBLE_EQUALS STRING .)
-    COMMA           reduce using rule 29 (statement -> NUMBER DOUBLE_EQUALS STRING .)
-    DOUBLE_EQUALS   shift and go to state 16
+    DOUBLE_EQUALS   shift and go to state 15
 
   ! DOUBLE_EQUALS   [ reduce using rule 29 (statement -> NUMBER DOUBLE_EQUALS STRING .) ]
 
 
-state 54
+state 52
 
     (30) statement -> IF statement COLON . statement
     (1) statement -> . PRINT LPAREN STRING RPAREN
@@ -1968,7 +1931,10 @@ state 54
     (29) statement -> . NUMBER DOUBLE_EQUALS STRING
     (30) statement -> . IF statement COLON statement
     (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
+    (32) statement -> . VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (33) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (34) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
+    (35) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
 
     PRINT           shift and go to state 2
     NUMBER          shift and go to state 5
@@ -1976,41 +1942,45 @@ state 54
     STRING          shift and go to state 4
     IF              shift and go to state 6
     VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
 
-    statement                      shift and go to state 60
+    statement                      shift and go to state 61
 
-state 55
+state 53
 
     (31) statement -> VARIABLE EQUALS ARRAY . LPAREN LIST RPAREN
 
-    LPAREN          shift and go to state 61
+    LPAREN          shift and go to state 62
+
+
+state 54
+
+    (32) statement -> VARIABLE EQUALS NP_ADD . LPAREN VARIABLE COMMA VARIABLE RPAREN
+
+    LPAREN          shift and go to state 63
+
+
+state 55
+
+    (33) statement -> VARIABLE EQUALS NP_SUBTRACT . LPAREN VARIABLE COMMA VARIABLE RPAREN
+
+    LPAREN          shift and go to state 64
 
 
 state 56
 
-    (32) statement -> NP_ADD LPAREN statement . COMMA statement RPAREN
-    (5) statement -> statement . PLUS NUMBER
-    (7) statement -> statement . PLUS statement
-    (9) statement -> statement . MINUS NUMBER
-    (11) statement -> statement . MINUS statement
-    (13) statement -> statement . TIMES NUMBER
-    (15) statement -> statement . TIMES statement
-    (17) statement -> statement . DIVIDE NUMBER
-    (19) statement -> statement . DIVIDE statement
-    (21) statement -> statement . DOUBLE_EQUALS statement
-    (24) statement -> statement . DOUBLE_EQUALS NUMBER
-    (26) statement -> statement . DOUBLE_EQUALS STRING
+    (34) statement -> VARIABLE EQUALS NP_SUM . LPAREN VARIABLE RPAREN
 
-    COMMA           shift and go to state 62
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    LPAREN          shift and go to state 65
 
 
 state 57
+
+    (35) statement -> VARIABLE EQUALS NP_DOT_PRODUCT . LPAREN VARIABLE COMMA VARIABLE RPAREN
+
+    LPAREN          shift and go to state 66
+
+
+state 58
 
     (1) statement -> PRINT LPAREN STRING RPAREN .
 
@@ -2022,10 +1992,9 @@ state 57
     $end            reduce using rule 1 (statement -> PRINT LPAREN STRING RPAREN .)
     RPAREN          reduce using rule 1 (statement -> PRINT LPAREN STRING RPAREN .)
     COLON           reduce using rule 1 (statement -> PRINT LPAREN STRING RPAREN .)
-    COMMA           reduce using rule 1 (statement -> PRINT LPAREN STRING RPAREN .)
 
 
-state 58
+state 59
 
     (2) statement -> PRINT LPAREN NUMBER RPAREN .
 
@@ -2037,10 +2006,9 @@ state 58
     $end            reduce using rule 2 (statement -> PRINT LPAREN NUMBER RPAREN .)
     RPAREN          reduce using rule 2 (statement -> PRINT LPAREN NUMBER RPAREN .)
     COLON           reduce using rule 2 (statement -> PRINT LPAREN NUMBER RPAREN .)
-    COMMA           reduce using rule 2 (statement -> PRINT LPAREN NUMBER RPAREN .)
 
 
-state 59
+state 60
 
     (3) statement -> PRINT LPAREN statement RPAREN .
 
@@ -2052,10 +2020,9 @@ state 59
     $end            reduce using rule 3 (statement -> PRINT LPAREN statement RPAREN .)
     RPAREN          reduce using rule 3 (statement -> PRINT LPAREN statement RPAREN .)
     COLON           reduce using rule 3 (statement -> PRINT LPAREN statement RPAREN .)
-    COMMA           reduce using rule 3 (statement -> PRINT LPAREN statement RPAREN .)
 
 
-state 60
+state 61
 
     (30) statement -> IF statement COLON statement .
     (5) statement -> statement . PLUS NUMBER
@@ -2078,12 +2045,11 @@ state 60
     $end            reduce using rule 30 (statement -> IF statement COLON statement .)
     RPAREN          reduce using rule 30 (statement -> IF statement COLON statement .)
     COLON           reduce using rule 30 (statement -> IF statement COLON statement .)
-    COMMA           reduce using rule 30 (statement -> IF statement COLON statement .)
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+    DOUBLE_EQUALS   shift and go to state 12
 
   ! PLUS            [ reduce using rule 30 (statement -> IF statement COLON statement .) ]
   ! MINUS           [ reduce using rule 30 (statement -> IF statement COLON statement .) ]
@@ -2092,90 +2058,77 @@ state 60
   ! DOUBLE_EQUALS   [ reduce using rule 30 (statement -> IF statement COLON statement .) ]
 
 
-state 61
+state 62
 
     (31) statement -> VARIABLE EQUALS ARRAY LPAREN . LIST RPAREN
 
-    LIST            shift and go to state 63
+    LIST            shift and go to state 67
 
-
-state 62
-
-    (32) statement -> NP_ADD LPAREN statement COMMA . statement RPAREN
-    (1) statement -> . PRINT LPAREN STRING RPAREN
-    (2) statement -> . PRINT LPAREN NUMBER RPAREN
-    (3) statement -> . PRINT LPAREN statement RPAREN
-    (4) statement -> . NUMBER PLUS NUMBER
-    (5) statement -> . statement PLUS NUMBER
-    (6) statement -> . NUMBER PLUS statement
-    (7) statement -> . statement PLUS statement
-    (8) statement -> . NUMBER MINUS NUMBER
-    (9) statement -> . statement MINUS NUMBER
-    (10) statement -> . NUMBER MINUS statement
-    (11) statement -> . statement MINUS statement
-    (12) statement -> . NUMBER TIMES NUMBER
-    (13) statement -> . statement TIMES NUMBER
-    (14) statement -> . NUMBER TIMES statement
-    (15) statement -> . statement TIMES statement
-    (16) statement -> . NUMBER DIVIDE NUMBER
-    (17) statement -> . statement DIVIDE NUMBER
-    (18) statement -> . NUMBER DIVIDE statement
-    (19) statement -> . statement DIVIDE statement
-    (20) statement -> . LPAREN statement RPAREN
-    (21) statement -> . statement DOUBLE_EQUALS statement
-    (22) statement -> . NUMBER DOUBLE_EQUALS NUMBER
-    (23) statement -> . STRING DOUBLE_EQUALS STRING
-    (24) statement -> . statement DOUBLE_EQUALS NUMBER
-    (25) statement -> . NUMBER DOUBLE_EQUALS statement
-    (26) statement -> . statement DOUBLE_EQUALS STRING
-    (27) statement -> . STRING DOUBLE_EQUALS statement
-    (28) statement -> . STRING DOUBLE_EQUALS NUMBER
-    (29) statement -> . NUMBER DOUBLE_EQUALS STRING
-    (30) statement -> . IF statement COLON statement
-    (31) statement -> . VARIABLE EQUALS ARRAY LPAREN LIST RPAREN
-    (32) statement -> . NP_ADD LPAREN statement COMMA statement RPAREN
-
-    PRINT           shift and go to state 2
-    NUMBER          shift and go to state 5
-    LPAREN          shift and go to state 3
-    STRING          shift and go to state 4
-    IF              shift and go to state 6
-    VARIABLE        shift and go to state 7
-    NP_ADD          shift and go to state 8
-
-    statement                      shift and go to state 64
 
 state 63
 
-    (31) statement -> VARIABLE EQUALS ARRAY LPAREN LIST . RPAREN
+    (32) statement -> VARIABLE EQUALS NP_ADD LPAREN . VARIABLE COMMA VARIABLE RPAREN
 
-    RPAREN          shift and go to state 65
+    VARIABLE        shift and go to state 68
 
 
 state 64
 
-    (32) statement -> NP_ADD LPAREN statement COMMA statement . RPAREN
-    (5) statement -> statement . PLUS NUMBER
-    (7) statement -> statement . PLUS statement
-    (9) statement -> statement . MINUS NUMBER
-    (11) statement -> statement . MINUS statement
-    (13) statement -> statement . TIMES NUMBER
-    (15) statement -> statement . TIMES statement
-    (17) statement -> statement . DIVIDE NUMBER
-    (19) statement -> statement . DIVIDE statement
-    (21) statement -> statement . DOUBLE_EQUALS statement
-    (24) statement -> statement . DOUBLE_EQUALS NUMBER
-    (26) statement -> statement . DOUBLE_EQUALS STRING
+    (33) statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN . VARIABLE COMMA VARIABLE RPAREN
 
-    RPAREN          shift and go to state 66
-    PLUS            shift and go to state 9
-    MINUS           shift and go to state 10
-    TIMES           shift and go to state 11
-    DIVIDE          shift and go to state 12
-    DOUBLE_EQUALS   shift and go to state 13
+    VARIABLE        shift and go to state 69
 
 
 state 65
+
+    (34) statement -> VARIABLE EQUALS NP_SUM LPAREN . VARIABLE RPAREN
+
+    VARIABLE        shift and go to state 70
+
+
+state 66
+
+    (35) statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN . VARIABLE COMMA VARIABLE RPAREN
+
+    VARIABLE        shift and go to state 71
+
+
+state 67
+
+    (31) statement -> VARIABLE EQUALS ARRAY LPAREN LIST . RPAREN
+
+    RPAREN          shift and go to state 72
+
+
+state 68
+
+    (32) statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE . COMMA VARIABLE RPAREN
+
+    COMMA           shift and go to state 73
+
+
+state 69
+
+    (33) statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE . COMMA VARIABLE RPAREN
+
+    COMMA           shift and go to state 74
+
+
+state 70
+
+    (34) statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE . RPAREN
+
+    RPAREN          shift and go to state 75
+
+
+state 71
+
+    (35) statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE . COMMA VARIABLE RPAREN
+
+    COMMA           shift and go to state 76
+
+
+state 72
 
     (31) statement -> VARIABLE EQUALS ARRAY LPAREN LIST RPAREN .
 
@@ -2187,26 +2140,118 @@ state 65
     $end            reduce using rule 31 (statement -> VARIABLE EQUALS ARRAY LPAREN LIST RPAREN .)
     RPAREN          reduce using rule 31 (statement -> VARIABLE EQUALS ARRAY LPAREN LIST RPAREN .)
     COLON           reduce using rule 31 (statement -> VARIABLE EQUALS ARRAY LPAREN LIST RPAREN .)
-    COMMA           reduce using rule 31 (statement -> VARIABLE EQUALS ARRAY LPAREN LIST RPAREN .)
 
 
-state 66
+state 73
 
-    (32) statement -> NP_ADD LPAREN statement COMMA statement RPAREN .
+    (32) statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA . VARIABLE RPAREN
 
-    PLUS            reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
-    MINUS           reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
-    TIMES           reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
-    DIVIDE          reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
-    DOUBLE_EQUALS   reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
-    $end            reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
-    RPAREN          reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
-    COLON           reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
-    COMMA           reduce using rule 32 (statement -> NP_ADD LPAREN statement COMMA statement RPAREN .)
+    VARIABLE        shift and go to state 77
+
+
+state 74
+
+    (33) statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA . VARIABLE RPAREN
+
+    VARIABLE        shift and go to state 78
+
+
+state 75
+
+    (34) statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .
+
+    PLUS            reduce using rule 34 (statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .)
+    MINUS           reduce using rule 34 (statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .)
+    TIMES           reduce using rule 34 (statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .)
+    DIVIDE          reduce using rule 34 (statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .)
+    DOUBLE_EQUALS   reduce using rule 34 (statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .)
+    $end            reduce using rule 34 (statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .)
+    RPAREN          reduce using rule 34 (statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .)
+    COLON           reduce using rule 34 (statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN .)
+
+
+state 76
+
+    (35) statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA . VARIABLE RPAREN
+
+    VARIABLE        shift and go to state 79
+
+
+state 77
+
+    (32) statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE . RPAREN
+
+    RPAREN          shift and go to state 80
+
+
+state 78
+
+    (33) statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE . RPAREN
+
+    RPAREN          shift and go to state 81
+
+
+state 79
+
+    (35) statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE . RPAREN
+
+    RPAREN          shift and go to state 82
+
+
+state 80
+
+    (32) statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .
+
+    PLUS            reduce using rule 32 (statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    MINUS           reduce using rule 32 (statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    TIMES           reduce using rule 32 (statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    DIVIDE          reduce using rule 32 (statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    DOUBLE_EQUALS   reduce using rule 32 (statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    $end            reduce using rule 32 (statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    RPAREN          reduce using rule 32 (statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    COLON           reduce using rule 32 (statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+
+
+state 81
+
+    (33) statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .
+
+    PLUS            reduce using rule 33 (statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    MINUS           reduce using rule 33 (statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    TIMES           reduce using rule 33 (statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    DIVIDE          reduce using rule 33 (statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    DOUBLE_EQUALS   reduce using rule 33 (statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    $end            reduce using rule 33 (statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    RPAREN          reduce using rule 33 (statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    COLON           reduce using rule 33 (statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+
+
+state 82
+
+    (35) statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .
+
+    PLUS            reduce using rule 35 (statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    MINUS           reduce using rule 35 (statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    TIMES           reduce using rule 35 (statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    DIVIDE          reduce using rule 35 (statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    DOUBLE_EQUALS   reduce using rule 35 (statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    $end            reduce using rule 35 (statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    RPAREN          reduce using rule 35 (statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
+    COLON           reduce using rule 35 (statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 23 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 23 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 23 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 23 resolved as shift
+WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 23 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 24 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 24 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 24 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 24 resolved as shift
+WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 24 resolved as shift
 WARNING: shift/reduce conflict for PLUS in state 25 resolved as shift
 WARNING: shift/reduce conflict for MINUS in state 25 resolved as shift
 WARNING: shift/reduce conflict for TIMES in state 25 resolved as shift
@@ -2247,17 +2292,17 @@ WARNING: shift/reduce conflict for MINUS in state 32 resolved as shift
 WARNING: shift/reduce conflict for TIMES in state 32 resolved as shift
 WARNING: shift/reduce conflict for DIVIDE in state 32 resolved as shift
 WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 32 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 33 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 33 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 33 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 33 resolved as shift
 WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 33 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 34 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 34 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 34 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 34 resolved as shift
-WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 34 resolved as shift
-WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 35 resolved as shift
+WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 38 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 39 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 39 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 39 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 39 resolved as shift
+WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 39 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 40 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 40 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 40 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 40 resolved as shift
 WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 40 resolved as shift
 WARNING: shift/reduce conflict for PLUS in state 41 resolved as shift
 WARNING: shift/reduce conflict for MINUS in state 41 resolved as shift
@@ -2309,19 +2354,9 @@ WARNING: shift/reduce conflict for MINUS in state 50 resolved as shift
 WARNING: shift/reduce conflict for TIMES in state 50 resolved as shift
 WARNING: shift/reduce conflict for DIVIDE in state 50 resolved as shift
 WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 50 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 51 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 51 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 51 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 51 resolved as shift
 WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 51 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 52 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 52 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 52 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 52 resolved as shift
-WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 52 resolved as shift
-WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 53 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 60 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 60 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 60 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 60 resolved as shift
-WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 60 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 61 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 61 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 61 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 61 resolved as shift
+WARNING: shift/reduce conflict for DOUBLE_EQUALS in state 61 resolved as shift
