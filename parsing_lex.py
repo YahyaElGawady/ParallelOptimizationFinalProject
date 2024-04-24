@@ -19,6 +19,10 @@ class MyLexer(object):
         'True': 'TRUE',
         'False': 'FALSE',
         'None': 'NONE',
+        'and': 'AND',
+        'or': 'OR',
+        'not': 'NOT',
+        'break': 'BREAK',
     }
 
     # Define the tokens that the lexer will recognize 
@@ -46,12 +50,12 @@ class MyLexer(object):
         'NP_SUBTRACT',
         # Add a token for numpy sum
         'NP_SUM',
-        # Add a token for numpy dot product 
-        'NP_DOT_PRODUCT', 
+        # Add a token for numpy dot product
+        'NP_DOT_PRODUCT',
         # Comma 
         'COMMA', 
         # Add a token for a variable
-        'VARIABLE'
+        'VARIABLE', 
     ] + list(reserved.values())
 
     # Define the regular expressions for the tokens
@@ -69,17 +73,17 @@ class MyLexer(object):
     t_NUMBER = r'\d+'
     t_LIST = r'\[.*?\]' 
     # Array will come in the format np.array or numpy.array
-    t_ARRAY = r'np\.array|numpy\.array'
+    t_ARRAY = r'(?:np|numpy)\.(?:array)'
     # Numpy add will come in the format np.add or numpy.add
-    t_NP_ADD = r'np\.add|numpy\.add'
+    t_NP_ADD = r'(?:np|numpy)\.(?:add)'
     # Numpy subtract will come in the format np.subtract or numpy.subtract
-    t_NP_SUBTRACT = r'np\.subtract|numpy\.subtract'
+    t_NP_SUBTRACT = r'(?:np|numpy)\.(?:subtract)'
     # Numpy sum will come in the format np.sum or numpy.sum
-    t_NP_SUM = r'np\.sum|numpy\.sum'
+    t_NP_SUM = r'(?:np|numpy)\.(?:sum)'
     # Numpy dot product will come in the format np.dot or numpy.dot
-    t_NP_DOT_PRODUCT = r'np\.dot|numpy\.dot'
+    t_NP_DOT_PRODUCT = r'(?:np|numpy)\.(?:dot)'
     t_COMMA = r','
-    t_VARIABLE = r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t_VARIABLE = r'(?!np\.|numpy\.)[a-zA-Z_][a-zA-Z_0-9]*'
 
     #  Handle if statements 
     def t_IF(self, t):

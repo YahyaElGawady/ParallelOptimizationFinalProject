@@ -2,6 +2,8 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
+    AND
+    BREAK
     COMMENT
     DEF
     ELIF
@@ -10,9 +12,11 @@ Unused terminals:
     FOR
     IN
     NONE
+    NOT
     NP_DOT_PRODUCT
     NP_SUBTRACT
     NP_SUM
+    OR
     RANGE
     RETURN
     TRUE
@@ -56,7 +60,9 @@ Rule 32    statement -> NP_ADD LPAREN statement COMMA statement RPAREN
 
 Terminals, with rules where they appear
 
+AND                  : 
 ARRAY                : 31
+BREAK                : 
 COLON                : 30
 COMMA                : 32
 COMMENT              : 
@@ -74,11 +80,13 @@ LIST                 : 31
 LPAREN               : 1 2 3 20 31 32
 MINUS                : 8 9 10 11
 NONE                 : 
+NOT                  : 
 NP_ADD               : 32
 NP_DOT_PRODUCT       : 
 NP_SUBTRACT          : 
 NP_SUM               : 
 NUMBER               : 2 4 4 5 6 8 8 9 10 12 12 13 14 16 16 17 18 22 22 24 25 28 29
+OR                   : 
 PLUS                 : 4 5 6 7
 PRINT                : 1 2 3
 RANGE                : 
