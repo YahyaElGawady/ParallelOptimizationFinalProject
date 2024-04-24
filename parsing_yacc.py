@@ -1,5 +1,6 @@
 from ply import yacc
 import numpy as np
+import pythonToC
 
 from parsing_lex import main, MyLexer
 
@@ -8,6 +9,34 @@ from parsing_lex import main, MyLexer
 class MyParser(object): 
     # Define the tokens that the parser will recognize 
     tokens = MyLexer.tokens
+
+
+    #handling - production rule for setup funcs
+    def p_setup_function(self, p):
+        '''statement : SET_UP LPAREN args COMMA VARIABLE RPAREN'''
+        if self.mode == 'C':
+            output = pythonToC.set_up(p[3], p[5])
+        else:
+            #TODO
+            #handling Python setup logic
+            print("Calling Python setup")
+            pass
+        p[0] = output
+
+    #handling host setup 
+    def p_host_setup(self, p):
+        '''statement : SET_UP_HOST LPAREN VARIABLE COMMA NUMBER RPAREN'''
+        if self.mode == 'C':
+            file_name  = p[3]
+            var = p[5]
+            matrix_dim = p[7]
+            output = pythonToC.set_up_host(file_name, var, matrix_dim)
+        else:
+            #TODO
+            print("Handling Python host setup")
+            pass
+        p[0] = output
+
 
     #handling advanced expressions:
 
