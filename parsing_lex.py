@@ -55,23 +55,31 @@ class MyLexer(object):
         # Add a token for numpy dot product
         'NP_DOT_PRODUCT',
         #Add a token for numpy sin 
-        'NP_SIN'
+        'NP_SIN',
         #Add a token for numpy cos
-        'NP_COS'
+        'NP_COS',
         #Add a token for nump exp
-        'NP_EXP'
+        'NP_EXP',
         #Add a token for numpy log
-        'NP_LOG'
+        'NP_LOG',
         #Add a token for numpy log10
-        'NP_LOG10'
+        'NP_LOG10',
         #Add a token for numpy sqrt
-        'NP_SQRT'
+        'NP_SQRT',
         #Add a token for numpy power
-        'NP_POWER'
+        'NP_POWER',
         #Add a token for numpy abs 
-        'NP_ABS'
+        'NP_ABS',
         #Add a token for sign
-        'NP_SIGN'
+        'NP_SIGN',
+        #POWER
+        'POWER',
+        #INCREMENT 
+        'INCREMENT',
+        #DECREMENT
+        'DECREMENT',
+        #toke for the setup funcs
+        'ARGS',
         # Comma 
         'COMMA', 
         # Add a token for a variable
@@ -107,19 +115,25 @@ class MyLexer(object):
     #Numpy cos will come in format np.cos or numpy.cos
     t_NP_COS = r'(?:np|numpy)\.(?:cos)'
     #Numpy exp will come in the format np.exp or numpy.exp
-    t_NP_EXP = r'(?:np|numpy)\.(?exp)'
+    t_NP_EXP = r'(?:np|numpy)\.(?:exp)'
     #Numpy log will come in the format np.log or numpy.log
-    t_NP_LOG = r'(?:np|numpy)\.(?log)'
+    t_NP_LOG = r'(?:np|numpy)\.(?:log)'
     #Numpy log10 will come in the format np.log10 or numpy.log10
-    t_NP_LOG10 = r'(?:np|numpy)\.(?log10)'
+    t_NP_LOG10 = r'(?:np|numpy)\.(?:log10)'
     #Numpy sqrt will come in format np.sqrt or numpy.sqrt
-    t_NP_SQRT = r'(?:np|numpy)\.(?sqrt)'
+    t_NP_SQRT = r'(?:np|numpy)\.(?:sqrt)'
     #Numpy power will come in format np.power or numpy.power
-    t_NP_POWER = r'(?:np|numpy)\.(?power)' 
+    t_NP_POWER = r'(?:np|numpy)\.(?:power)' 
     #Numpy absolute will come in format np.abs or numpy.abs
-    t_NP_ABS = r'(?:np|numpy)\.(?abs)'
+    t_NP_ABS = r'(?:np|numpy)\.(?:abs)'
     #Numpy sign will come in format np.sign or numpy.sign
-    t_NP_SIGN = r'(?:np|numpy)\.(?sign)'
+    t_NP_SIGN = r'(?:np|numpy)\.(?:sign)'
+    #t_AND = r'AND'
+    #t_OR = r'OR'
+   #t_NOT = r'NOT'
+    #t_POWER = r'POWER'
+    #t_INCREMENT = r'INCREMENT'
+    #t_DECREMENT = r'DECREMENT'
     t_COMMA = r','
     t_VARIABLE = r'(?!np\.|numpy\.)[a-zA-Z_][a-zA-Z_0-9]*'
 

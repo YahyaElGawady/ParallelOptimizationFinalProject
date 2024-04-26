@@ -13,7 +13,7 @@ class MyParser(object):
 
     #handling - production rule for setup funcs
     def p_setup_function(self, p):
-        '''statement : SET_UP LPAREN args COMMA VARIABLE RPAREN'''
+        '''statement : SET_UP LPAREN VARIABLE COMMA NUMBER RPAREN''' 
         if self.mode == 'C':
             output = pythonToC.set_up(p[3], p[5])
         else:
@@ -25,12 +25,12 @@ class MyParser(object):
 
     #handling host setup 
     def p_host_setup(self, p):
-        '''statement : SET_UP_HOST LPAREN VARIABLE COMMA NUMBER RPAREN'''
+        '''statement : SET_UP_HOST LPAREN VARIABLE COMMA ARGS COMMA NUMBER RPAREN'''
         if self.mode == 'C':
             file_name  = p[3]
-            var = p[5]
-            matrix_dim = p[7]
-            output = pythonToC.set_up_host(file_name, var, matrix_dim)
+            args = None #placeholder for args parameter
+            matrix_dim = p[5]
+            output = pythonToC.set_up_host(args, file_name, matrix_dim)
         else:
             #TODO
             print("Handling Python host setup")
