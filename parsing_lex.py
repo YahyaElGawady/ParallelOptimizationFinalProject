@@ -30,6 +30,7 @@ class MyLexer(object):
     tokens = [
         'SET_UP_HOST',
         'SET_UP', 
+        'SPACE',
         'STRING',
         'COMMENT', # This is a comment token that will be ignored by the lexer
         'NUMBER', # This is a number token that will be used to represent integers and floats
@@ -87,6 +88,7 @@ class MyLexer(object):
     ] + list(reserved.values())
 
     # Define the regular expressions for the tokens
+    t_SPACE = r'\s'
     t_STRING = r'\".*?\"'
     t_PLUS = r'\+'
     t_MINUS = r'\-'

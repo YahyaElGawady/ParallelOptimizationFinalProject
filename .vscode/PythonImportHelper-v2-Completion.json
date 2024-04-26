@@ -154,7 +154,7 @@
         "kind": 6,
         "importPath": "parsing_yacc",
         "description": "parsing_yacc",
-        "peekOfCode": "class MyParser(object): \n    # Define the tokens that the parser will recognize \n    tokens = MyLexer.tokens\n    #handling - production rule for setup funcs\n    def p_setup_function(self, p):\n        '''statement : SET_UP LPAREN VARIABLE COMMA NUMBER RPAREN''' \n        if self.mode == 'C':\n            output = pythonToC.set_up(p[3], p[5])\n        else:\n            #TODO",
+        "peekOfCode": "class MyParser(object): \n    # Define the tokens that the parser will recognize \n    tokens = MyLexer.tokens\n    #handling - production rule for setup funcs\n    def p_setup_function(self, p):\n        '''statement : SET_UP LPAREN args COMMA VARIABLE RPAREN'''\n        if self.mode == 'C':\n            output = pythonToC.set_up(p[3], p[5])\n        else:\n            #TODO",
         "detail": "parsing_yacc",
         "documentation": {}
     },
