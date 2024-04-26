@@ -1,13 +1,13 @@
 # Import any necessary modules here
+import inspect
 
 # Define your functions here
-def set_up(args, file_name):
+def set_up(file_name):
     file = open(file_name + ".c", "a")
     file.write("//%%cuda_group_save -n run.cu -g default\n")
     file.write("#include <stdio.h>\n")
     file.write('#include "util.h"\n\n')
     file.write("__host__\n main() {\n")
-
 
 #    file.write("}\n\n__host__\n")
 #    file.write("const int THREADS_PER_BLOCK = 256, BLOCKS = 3;\n\n")
@@ -21,41 +21,37 @@ def set_up(args, file_name):
 
 
 def get_var_name(var):
-    matrix_dim = 0
-    for name, value in globals().items():
-        if value is var:
-            return name
-        if value is result:
-            matrix_dim = np.prod(result.shape)
+    callers_local_vars = inspect.currentframe().f_back.f_locals.items()
+    return ([var_name for var_name, var_val in callers_local_vars if var_val is var])[0]
 
 
 def numpy_add_to_c(a, b, result):
     a_name = get_var_name(a)
     b_name = get_var_name(b)
     result_name = get_var_name(result)
-    return f"addArraysHelper({a_name}, {b_name}, {result_name})"
+    return f"addArraysHelper({a_name}, {b_name}, {result_name});"
 
 
 def numpy_sub_to_c(a, b, result):
     a_name = get_var_name(a)
     b_name = get_var_name(b)
     result_name = get_var_name(result)
-    return f"subtractArraysHelper({a_name}, {b_name}, {result_name})"
+    return f"subtractArraysHelper({a_name}, {b_name}, {result_name});"
 
 
 def numpy_sum_to_c(a, result):
     a_name = get_var_name(a)
     result_name = get_var_name(result)
-    return f"sumArraysHelper({a_name}, {result_name})"
+    return f"sumArraysHelper({a_name}, {result_name});"
 
 
 def numpy_dot_product_to_c(a, b, result):
     a_name = get_var_name(a)
     b_name = get_var_name(b)
     result_name = get_var_name(result)
-    return f"dotArraysHelper({a_name}, {b_name}, {result_name})"
+    return f"dotArraysHelper({a_name}, {b_name}, {result_name});"
 
-def set_up_host(args, filen_name, matrix_dim):
+def set_up_host(args, file_name, matrix_dim):
     file = open(file_name + ".c", "a")
     file.write("    float *h_input, *h_output;\n")
     file.write(f"    h_input = (float*)malloc({matrix_dim} * {matrix_dim} * sizeof(float));\n")
@@ -80,6 +76,9 @@ def set_up_host(args, filen_name, matrix_dim):
     file.close();
 
 def main():
+    x = 5
+    print(get_var_name(x))
+    set_up("hi")
     pass
 
 
