@@ -13,7 +13,8 @@ class MyParser(object):
 
     #handling - production rule for setup funcs
     def p_setup_function(self, p):
-        '''statement : SET_UP LPAREN args COMMA VARIABLE RPAREN'''
+        # I'm changing args here to be variable since there isn't a regex expression for args rn 
+        '''statement : SET_UP LPAREN VARIABLE COMMA VARIABLE RPAREN'''
         if self.mode == 'C':
             output = pythonToC.set_up(p[3], p[5])
         else:

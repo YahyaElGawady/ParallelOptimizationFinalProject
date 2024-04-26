@@ -80,7 +80,7 @@ class MyLexer(object):
         #DECREMENT
         'DECREMENT',
         #toke for the setup funcs
-        'ARGS',
+        # 'ARGS',
         # Comma 
         'COMMA', 
         # Add a token for a variable
