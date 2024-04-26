@@ -217,6 +217,9 @@ class MyParser(object):
         '''statement : VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN'''
         print("Adding two numpy arrays")
         # The inputs are p[5] and p[7]
+        summed_array = p[1]
+        array1 = p[5]
+        array2 = p[7] 
         if self.mode == 'C': 
             # TODO: Call the C function 
             print("Calling C function")

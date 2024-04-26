@@ -18,20 +18,20 @@
         "documentation": {}
     },
     {
-        "label": "yacc",
-        "importPath": "ply",
-        "description": "ply",
-        "isExtraImport": true,
-        "detail": "ply",
-        "documentation": {}
-    },
-    {
         "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "numpy",
         "description": "numpy",
         "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "yacc",
+        "importPath": "ply",
+        "description": "ply",
+        "isExtraImport": true,
+        "detail": "ply",
         "documentation": {}
     },
     {
@@ -82,7 +82,52 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def set_up(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"//%%cuda_group_save -n run.cu -g default\\n\")\n    file.write(\"#include <stdio.h>\\n\")\n    file.write('#include \"util.h\"\\n\\n')\n    file.write(\"__host__\\n main() {\\n\")\n#    file.write(\"}\\n\\n__host__\\n\")\n#    file.write(\"const int THREADS_PER_BLOCK = 256, BLOCKS = 3;\\n\\n\")\n# convert args to c\n# convert args from device to host",
+        "peekOfCode": "def set_up(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"//%%cuda_group_save -n run.cu -g default\\n\")\n    file.write(\"#include <stdio.h>\\n\")\n    file.write('#include \"util.h\"\\n\\n')\n    file.write('#include \"help_file.c\"')\n    file.write(\"__global__\")\n    file.write(f\"void {file_name}_kernel(float * d_input, float * d_output, const int matrix_dim)\\n\"+\"{\\n\")\ndef end_kernel(file_name):\n    file = open(file_name + \".c\", \"a\")",
+        "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
+        "label": "end_kernel",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def end_kernel(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"}\")\ndef set_up_main(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"__host__\\n main() {\\n\")\ndef set_arr(var, file_name):\n    file = open(file_name + \".c\", \"a\")\n    arr_string = (np.array_str(var))[6:]\n    file.write(f\"   float * h_{get_var_name(var)} = {arr_string};\\n\")",
+        "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
+        "label": "set_up_main",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def set_up_main(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"__host__\\n main() {\\n\")\ndef set_arr(var, file_name):\n    file = open(file_name + \".c\", \"a\")\n    arr_string = (np.array_str(var))[6:]\n    file.write(f\"   float * h_{get_var_name(var)} = {arr_string};\\n\")\n    file.write(f\"    float *d_{get_var_name(var)};\\n\")\n    file.write(f\"   cudaMalloc(&d_{get_var_name(var)},sizeof(h_{get_var_name(var)});\\n\")\n    transfer_data(var, file_name, True)",
+        "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
+        "label": "set_arr",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def set_arr(var, file_name):\n    file = open(file_name + \".c\", \"a\")\n    arr_string = (np.array_str(var))[6:]\n    file.write(f\"   float * h_{get_var_name(var)} = {arr_string};\\n\")\n    file.write(f\"    float *d_{get_var_name(var)};\\n\")\n    file.write(f\"   cudaMalloc(&d_{get_var_name(var)},sizeof(h_{get_var_name(var)});\\n\")\n    transfer_data(var, file_name, True)\ndef transfer_data(var, file_name,hToD):\n    file = open(file_name + \".c\", \"a\")\n    if hToD:",
+        "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
+        "label": "transfer_data",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def transfer_data(var, file_name,hToD):\n    file = open(file_name + \".c\", \"a\")\n    if hToD:\n        file.write(f\"    cudaMemcpy(d_{get_var_name(var)}, h_{get_var_name(var)},sizeof(h_{get_var_name(var)}), cudaMemcpyHostToDevice);\\n\\n\")\n    else:\n        file.write(f\"   cudaMemcpy(h_{get_var_name(var)}, d_{get_var_name(var)}, sizeof(h_{get_var_name(var)}), cudaMemcpyDeviceToHost);\")\ndef free_data(var, file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(f\"    cudaFree(d_{get_var_name(var)});\\n\")\n    file.write(f\"    free(h_{get_var_name(var)});\\n\")",
+        "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
+        "label": "free_data",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def free_data(var, file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(f\"    cudaFree(d_{get_var_name(var)});\\n\")\n    file.write(f\"    free(h_{get_var_name(var)});\\n\")\n#    file.write(\"}\\n\\n__host__\\n\")\n#    file.write(\"const int THREADS_PER_BLOCK = 256, BLOCKS = 3;\\n\\n\")\n# convert args to c\n# convert args from device to host\n#    file.write(file_name + \"<<<BLOCKS,THREADS_PER_BLOCK>>>(args);\\n\")\n#    file.write(\"cudaDeviceSynchronize();\\n\")",
         "detail": "pythonToC",
         "documentation": {}
     },
