@@ -11,33 +11,6 @@ class MyParser(object):
     tokens = MyLexer.tokens
 
 
-    #handling - production rule for setup funcs
-    def p_setup_function(self, p):
-        # I'm changing args here to be variable since there isn't a regex expression for args rn 
-        '''statement : SET_UP LPAREN VARIABLE COMMA VARIABLE RPAREN'''
-        if self.mode == 'C':
-            output = pythonToC.set_up(p[3], p[5])
-        else:
-            #TODO
-            #handling Python setup logic
-            print("Calling Python setup")
-            pass
-        p[0] = output
-
-    #handling host setup 
-    def p_host_setup(self, p):
-        '''statement : SET_UP_HOST LPAREN VARIABLE COMMA NUMBER RPAREN'''
-        if self.mode == 'C':
-            file_name  = p[3]
-            var = p[5]
-            matrix_dim = p[7]
-            output = pythonToC.set_up_host(file_name, var, matrix_dim)
-        else:
-            #TODO
-            print("Handling Python host setup")
-            pass
-        p[0] = output
-
 
     #handling advanced expressions:
 
@@ -52,7 +25,10 @@ class MyParser(object):
 
     #handling logical OR operator
     def p_expression_or(self, p):
-        '''statement : statement OR statement'''
+        '''statement : NUMBER OR NUMBER 
+                     | NUMBER OR statement
+                     | statement OR NUMBER
+                     | statement OR statement'''
         if self.mode == 'C':
             output = "%s || %s" % (p[1], p[3])
         else:
@@ -217,9 +193,6 @@ class MyParser(object):
         '''statement : VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN'''
         print("Adding two numpy arrays")
         # The inputs are p[5] and p[7]
-        summed_array = p[1]
-        array1 = p[5]
-        array2 = p[7] 
         if self.mode == 'C': 
             # TODO: Call the C function 
             print("Calling C function")
@@ -269,10 +242,6 @@ class MyParser(object):
         else:
             # TODO: Call the Python function
             print("Calling Python function")
-
-    def p_space(self, p):
-        '''statement : '''
-        pass
 
     # Create an error handler
     def p_error(self, p):

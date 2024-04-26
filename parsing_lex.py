@@ -130,7 +130,7 @@ class MyLexer(object):
     #Numpy sign will come in format np.sign or numpy.sign
     t_NP_SIGN = r'(?:np|numpy)\.(?:sign)'
     t_AND = r'AND'
-    t_OR = r'OR'
+    #t_OR = r'OR'
     t_NOT = r'NOT'
    # t_POWER = r'POWER'
     t_INCREMENT = r'INCREMENT'
@@ -140,7 +140,11 @@ class MyLexer(object):
     def t_PRINT(self, t):
         r'print'
         return t
-
+    
+    def t_OR(self, t):
+        r'OR'
+        return t
+    
     def t_VARIABLE(self, t):
         r'(?!np\.|numpy\.)[a-zA-Z_][a-zA-Z_0-9]*'
         # If it's a reserved keyword, set the type to the keyword
