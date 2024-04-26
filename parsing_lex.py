@@ -129,12 +129,12 @@ class MyLexer(object):
     t_NP_ABS = r'(?:np|numpy)\.(?:abs)'
     #Numpy sign will come in format np.sign or numpy.sign
     t_NP_SIGN = r'(?:np|numpy)\.(?:sign)'
-    #t_AND = r'AND'
-    #t_OR = r'OR'
-   #t_NOT = r'NOT'
-    #t_POWER = r'POWER'
-    #t_INCREMENT = r'INCREMENT'
-    #t_DECREMENT = r'DECREMENT'
+    t_AND = r'AND'
+    t_OR = r'OR'
+    t_NOT = r'NOT'
+   # t_POWER = r'POWER'
+    t_INCREMENT = r'INCREMENT'
+    t_DECREMENT = r'DECREMENT'
     t_COMMA = r','
 
     def t_PRINT(self, t):
