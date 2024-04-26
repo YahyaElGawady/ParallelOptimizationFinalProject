@@ -7,6 +7,7 @@ class MyLexer(object):
 
     # Let's have our Lexer handle reserved keywords 
     reserved = {
+        'print': 'PRINT',
         'if': 'IF',
         'else': 'ELSE',
         'elif': 'ELIF',
@@ -28,8 +29,7 @@ class MyLexer(object):
     # Define the tokens that the lexer will recognize 
     tokens = [
         'SET_UP_HOST',
-        'SET_UP',
-        'PRINT', 
+        'SET_UP', 
         'STRING',
         'COMMENT', # This is a comment token that will be ignored by the lexer
         'NUMBER', # This is a number token that will be used to represent integers and floats
@@ -87,7 +87,6 @@ class MyLexer(object):
     ] + list(reserved.values())
 
     # Define the regular expressions for the tokens
-    t_PRINT = r'print'
     t_STRING = r'\".*?\"'
     t_PLUS = r'\+'
     t_MINUS = r'\-'
@@ -135,7 +134,15 @@ class MyLexer(object):
     #t_INCREMENT = r'INCREMENT'
     #t_DECREMENT = r'DECREMENT'
     t_COMMA = r','
-    t_VARIABLE = r'(?!np\.|numpy\.)[a-zA-Z_][a-zA-Z_0-9]*'
+
+    def t_PRINT(self, t):
+        r'print'
+        return t
+
+    def t_VARIABLE(self, t):
+        r'(?!np\.|numpy\.)[a-zA-Z_][a-zA-Z_0-9]*'
+        # If it's a reserved keyword, set the type to the keyword
+        t.type = self.reserved.get(t.value, 'VARIABLE')
 
     #  Handle if statements 
     def t_IF(self, t):
