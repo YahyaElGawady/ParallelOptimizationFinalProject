@@ -75,6 +75,7 @@ Rule 41    statement -> VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RP
 Rule 42    statement -> VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
 Rule 43    statement -> VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
 Rule 44    statement -> VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+Rule 45    statement -> <empty>
 
 Terminals, with rules where they appear
 
@@ -185,6 +186,7 @@ state 0
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 2
     NOT             shift and go to state 3
@@ -193,6 +195,15 @@ state 0
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 1
 
@@ -296,6 +307,7 @@ state 3
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 2
     NOT             shift and go to state 3
@@ -304,6 +316,17 @@ state 3
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 23
 
@@ -378,6 +401,7 @@ state 6
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 2
     NOT             shift and go to state 3
@@ -386,6 +410,15 @@ state 6
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    RPAREN          reduce using rule 45 (statement -> .)
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 28
 
@@ -445,6 +478,7 @@ state 8
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 2
     NOT             shift and go to state 3
@@ -453,6 +487,15 @@ state 8
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    COLON           reduce using rule 45 (statement -> .)
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 30
 
@@ -503,6 +546,7 @@ state 9
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 2
     NOT             shift and go to state 3
@@ -511,6 +555,17 @@ state 9
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 31
 
@@ -562,6 +617,7 @@ state 10
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 33
     NOT             shift and go to state 3
@@ -570,6 +626,17 @@ state 10
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 32
 
@@ -620,6 +687,7 @@ state 11
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 2
     NOT             shift and go to state 3
@@ -628,6 +696,17 @@ state 11
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 34
 
@@ -679,6 +758,7 @@ state 12
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 36
     NOT             shift and go to state 3
@@ -687,6 +767,17 @@ state 12
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 35
 
@@ -738,6 +829,7 @@ state 13
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 38
     NOT             shift and go to state 3
@@ -746,6 +838,17 @@ state 13
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 37
 
@@ -797,6 +900,7 @@ state 14
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 40
     NOT             shift and go to state 3
@@ -805,6 +909,17 @@ state 14
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 39
 
@@ -856,6 +971,7 @@ state 15
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 42
     NOT             shift and go to state 3
@@ -864,6 +980,17 @@ state 15
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 41
 
@@ -916,6 +1043,7 @@ state 16
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 44
     STRING          shift and go to state 45
@@ -924,6 +1052,17 @@ state 16
     PRINT           shift and go to state 5
     LPAREN          shift and go to state 6
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 43
 
@@ -975,6 +1114,7 @@ state 17
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 46
     NOT             shift and go to state 3
@@ -983,6 +1123,17 @@ state 17
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 47
 
@@ -1034,6 +1185,7 @@ state 18
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 48
     NOT             shift and go to state 3
@@ -1042,6 +1194,17 @@ state 18
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 49
 
@@ -1093,6 +1256,7 @@ state 19
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 50
     NOT             shift and go to state 3
@@ -1101,6 +1265,17 @@ state 19
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 51
 
@@ -1152,6 +1327,7 @@ state 20
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 52
     NOT             shift and go to state 3
@@ -1160,6 +1336,17 @@ state 20
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 53
 
@@ -1211,6 +1398,7 @@ state 21
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 54
     NOT             shift and go to state 3
@@ -1219,6 +1407,17 @@ state 21
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 55
 
@@ -1271,6 +1470,7 @@ state 22
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 56
     STRING          shift and go to state 58
@@ -1279,6 +1479,17 @@ state 22
     PRINT           shift and go to state 5
     LPAREN          shift and go to state 6
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 57
 
@@ -1429,6 +1640,7 @@ state 27
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     STRING          shift and go to state 64
     NUMBER          shift and go to state 65
@@ -1437,6 +1649,15 @@ state 27
     PRINT           shift and go to state 5
     LPAREN          shift and go to state 6
     IF              shift and go to state 8
+    RPAREN          reduce using rule 45 (statement -> .)
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 66
 
@@ -1519,6 +1740,7 @@ state 29
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     STRING          shift and go to state 68
     NUMBER          shift and go to state 70
@@ -1527,6 +1749,17 @@ state 29
     PRINT           shift and go to state 5
     LPAREN          shift and go to state 6
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 69
 
@@ -3089,6 +3322,7 @@ state 71
     (42) statement -> . VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN
     (43) statement -> . VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN
     (44) statement -> . VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN
+    (45) statement -> .
 
     NUMBER          shift and go to state 2
     NOT             shift and go to state 3
@@ -3097,6 +3331,17 @@ state 71
     LPAREN          shift and go to state 6
     STRING          shift and go to state 7
     IF              shift and go to state 8
+    AND             reduce using rule 45 (statement -> .)
+    OR              reduce using rule 45 (statement -> .)
+    POWER           reduce using rule 45 (statement -> .)
+    PLUS            reduce using rule 45 (statement -> .)
+    MINUS           reduce using rule 45 (statement -> .)
+    TIMES           reduce using rule 45 (statement -> .)
+    DIVIDE          reduce using rule 45 (statement -> .)
+    DOUBLE_EQUALS   reduce using rule 45 (statement -> .)
+    $end            reduce using rule 45 (statement -> .)
+    RPAREN          reduce using rule 45 (statement -> .)
+    COLON           reduce using rule 45 (statement -> .)
 
     statement                      shift and go to state 80
 
