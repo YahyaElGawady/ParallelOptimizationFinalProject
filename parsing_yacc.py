@@ -243,6 +243,10 @@ class MyParser(object):
             # TODO: Call the Python function
             print("Calling Python function")
 
+    def p_space(self, p):
+        '''statement : '''
+        pass
+
     # Create an error handler
     def p_error(self, p):
         print("Syntax error in input!")
