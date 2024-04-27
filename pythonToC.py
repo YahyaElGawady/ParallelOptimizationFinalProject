@@ -35,10 +35,11 @@ def set_arr(var_name, var, var_length, file_name):
     file = open(file_name + ".c", "a")
     #actually getting an array
     #arr_string = (np.array_str(var))[6:]
-    if variables == "":
-        variables += f"d_{var}"
-    else:
-        variables += (f", d_{var}")
+    #if variables == "":
+       # variables += f"d_{var}"
+    #else:
+        #variables += (f", d_{var}")
+    variables.append(f"d_{var_name}")
     #file.write(f"   float h_{var_name}[{var_length}] = {var};\n")
     #file.write(f"    float *d_{var_name};\n")
     #file.write(f"   cudaMalloc(&d_{var_name},{var_length}*sizeof(float);\n")
