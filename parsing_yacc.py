@@ -195,8 +195,9 @@ class MyParser(object):
             output = pythonToC.set_arr(variable_name, list_values_with_brackets,list_values, "test")
             p[0] = output
         else:
-            # TODO: Call the Python function 
+            # TODO: Call the Python function
             print("Calling Python function")
+
             output = pytopy.array_to_py(variable_name, list_values)
             p[0] = output
             pass
@@ -215,6 +216,7 @@ class MyParser(object):
             # TODO: Call the Python function 
             print("Calling Python function")
             result = pytopy.numpy_add_to_py(p[5], p[7])
+            p[0] = result
             pass
 
     # Handle numpy subtract
@@ -230,6 +232,7 @@ class MyParser(object):
             # TODO: Call the Python function
             print("Calling Python function")
             result = pytopy.numpy_subtract_to_py(p[5], p[7])
+            p[0] = result
             pass
 
     # Handle numpy sum
@@ -245,6 +248,7 @@ class MyParser(object):
             # TODO: Call the Python function
             print("Calling Python function")
             result = pytopy.numpy_sum_to_py(p[5])
+            p[0] = result
             pass
 
     # Handle numpy dot product
@@ -260,6 +264,7 @@ class MyParser(object):
             # TODO: Call the Python function
             print("Calling Python function")
             result = pytopy.numpy_dot_to_py(p[5], p[7])
+            p[0] = result
 
     def p_space(self, p):
         '''statement : '''

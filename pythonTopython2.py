@@ -1,4 +1,6 @@
-import numpy as np
+def setup(file_name):
+    file = open(file_name + ".py", "a")
+    file.write("import cupy")
 
 def get_var_name(var):
     for name, value in globals().items():
@@ -25,4 +27,4 @@ def numpy_dot_to_py(a, b):
     return f"cupy.dot({a_name}, {b_name})"
 
 def array_to_py(variable_name, list_values):
-    return f"{variable_name} = cp.array({list_values.tolist()})"
+    return f"{variable_name} = cupy.array({list_values.tolist()})"
