@@ -85,11 +85,22 @@ class MyParser(object):
         p[0] = output
     
     def p_expression_np_sin(self, p):
-        '''statement : NP_SIN LPAREN statement RPAREN'''
+        '''statement : NP_SIN LPAREN statement RPAREN
+                     | NP_SIN LPAREN NUMBER RPAREN'''
         if self.mode == 'C':
             output = "sin(%s)" % p[3]
         else:
-            output = "np.sin(%s)" % p[3]
+           output = "np.sin(%s)" % p[3]
+        p[0] = output
+
+
+    def p_expression_np_cos(self, p):
+        '''statement : NP_COS LPAREN statement RPAREN
+                     | NP_COS LPAREN NUMBER RPAREN'''
+        if self.mode == 'C':
+            output = "cos(%s)" % p[3]
+        else:
+           output = "np.cos(%s)" % p[3]
         p[0] = output
 
 
