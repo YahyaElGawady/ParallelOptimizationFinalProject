@@ -3,8 +3,7 @@ import numpy as np
 import pythonToC
 
 from parsing_lex import main, MyLexer
-
-# Create a class that will build the yacc Parser 
+# Create a class that will build the yacc Parser
 # Based on the mode, it will either call the C or Python parser
 class MyParser(object): 
     # Define the tokens that the parser will recognize 
@@ -191,7 +190,8 @@ class MyParser(object):
         print("List values: %s" % list_values)
 
         if self.mode == 'C':
-            output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
+            #output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
+            output = pythonToC.set_arr(variable_name, list_values_with_brackets,list_values, "test")
             p[0] = output
         else:
             # TODO: Call the Python function 

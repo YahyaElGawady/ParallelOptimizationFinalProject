@@ -31,7 +31,7 @@ def set_up_main(file_name):
     file.write("__host__\n int main() {\n")
 
 
-def set_arr(var_name, var, file_name):
+def set_arr(var_name, var, var_length, file_name):
     file = open(file_name + ".c", "a")
     #actually getting an array
     #arr_string = (np.array_str(var))[6:]
@@ -39,11 +39,14 @@ def set_arr(var_name, var, file_name):
         variables += f"d_{var}"
     else:
         variables += (f", d_{var}")
-    file.write(f"   float * h_{var_name} = {var};\n")
-    file.write(f"    float *d_{var_name};\n")
-    file.write(f"   cudaMalloc(&d_{var_name},sizeof(h_{var_name});\n")
-    transfer_data(var, file_name, True)
-
+    #file.write(f"   float h_{var_name}[{var_length}] = {var};\n")
+    #file.write(f"    float *d_{var_name};\n")
+    #file.write(f"   cudaMalloc(&d_{var_name},{var_length}*sizeof(float);\n")
+    #transfer_data(var, file_name, True)
+    output = f"   float h_{var_name}[{var_length}] = {var};\n"
+    output += f"    float *d_{var_name};\n"
+    output += f"   cudaMalloc(&d_{var_name},{var_length}*sizeof(float);\n"
+    output += transfer_data(var, file_name, True)
 
 def deploy_kernel(file_name):
     file = open(file_name + ".c", "a")
@@ -56,10 +59,11 @@ def deploy_kernel(file_name):
 def transfer_data(var_name, var, file_name, hToD):
     file = open(file_name + ".c", "a")
     if hToD:
-        file.write(f"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\n\n")
+        #file.write(f"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\n\n")
+        return f"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\n\n"
     else:
-        file.write(f"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);")
-
+        #file.write(f"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);")
+        return f"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);\n"
 
 def free_data(var, file_name):
     file = open(file_name + ".c", "a")
