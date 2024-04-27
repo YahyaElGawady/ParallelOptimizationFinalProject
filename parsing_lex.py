@@ -141,6 +141,18 @@ class MyLexer(object):
         r'print'
         return t
     
+    def t_RANGE(self, t):
+        r'range'
+        return t
+    
+    def t_FOR(self, t):
+        r'for'
+        return t
+
+    def t_IN(self, t):
+        r'in'
+        return t
+    
     def t_OR(self, t):
         r'OR'
         return t
@@ -165,14 +177,18 @@ class MyLexer(object):
         r'POWER'
         return t
     
-    def t_NP_SIN(t):
+    def t_NP_SIN(self, t):
         r'(?:np|numpy)\.(?:sin)'
         return t
     
     def t_VARIABLE(self, t):
         r'(?!np\.|numpy\.)[a-zA-Z_][a-zA-Z_0-9]*'
+        # print(t.value)
+        # print(t.type)
         # If it's a reserved keyword, set the type to the keyword
         t.type = self.reserved.get(t.value, 'VARIABLE')
+        # print(t.type)
+        return t
 
     #  Handle if statements 
     def t_IF(self, t):

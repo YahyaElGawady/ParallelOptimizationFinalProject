@@ -27,4 +27,4 @@ def numpy_dot_to_py(a, b):
     return f"cupy.dot({a_name}, {b_name})"
 
 def array_to_py(variable_name, list_values):
-    return f"{variable_name} = cupy.array({list_values.tolist()})"
+    return f"{variable_name} = cupy.array({list(list_values)})"
