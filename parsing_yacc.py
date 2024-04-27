@@ -216,7 +216,6 @@ class MyParser(object):
 
             output = pytopy.array_to_py(variable_name, list_values)
             p[0] = output
-            pass
 
 
     # Handle numpy add
@@ -233,7 +232,6 @@ class MyParser(object):
             print("Calling Python function")
             result = pytopy.numpy_add_to_py(p[5], p[7])
             p[0] = result
-            pass
 
     # Handle numpy subtract
     def p_numpy_subtract(self, p):
@@ -249,7 +247,6 @@ class MyParser(object):
             print("Calling Python function")
             result = pytopy.numpy_subtract_to_py(p[5], p[7])
             p[0] = result
-            pass
 
     # Handle numpy sum
     def p_numpy_sum(self, p):
@@ -265,7 +262,6 @@ class MyParser(object):
             print("Calling Python function")
             result = pytopy.numpy_sum_to_py(p[5])
             p[0] = result
-            pass
 
     # Handle numpy dot product
     def p_numpy_dot_product(self, p):
