@@ -27,4 +27,7 @@ def numpy_dot_to_py(a, b):
     return f"cupy.dot({a_name}, {b_name})"
 
 def array_to_py(variable_name, list_values):
-    return f"{variable_name} = cupy.array({list_values.tolist()})"
+    # list_values is a string containing comma-separated values 
+    # Turn list_values into a list, and each value in the list into an integer 
+    values = [int(value) for value in list_values.split(',')]
+    return f"{variable_name} = cupy.array({values})"

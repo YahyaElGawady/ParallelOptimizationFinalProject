@@ -10,8 +10,6 @@ class MyParser(object):
     # Define the tokens that the parser will recognize 
     tokens = MyLexer.tokens
 
-
-
     #handling advanced expressions:
 
     #handling logical AND operator
@@ -110,7 +108,8 @@ class MyParser(object):
     def p_print_statement(self, p):
         '''statement : PRINT LPAREN STRING RPAREN 
                      | PRINT LPAREN NUMBER RPAREN
-                     | PRINT LPAREN statement RPAREN'''
+                     | PRINT LPAREN statement RPAREN
+                     | PRINT LPAREN VARIABLE RPAREN'''
         # Based on the mode, we either want to call the C or Python print function 
         if self.mode == 'C':
             # return a print statement in C 
@@ -191,6 +190,17 @@ class MyParser(object):
             p[0] = output
         else:
             output = "if %s:\n\t%s" % (p[2], p[4])
+            p[0] = output 
+
+
+    # Handling for loop with range 
+    def p_for_loop(self, p):
+        '''statement : FOR VARIABLE IN RANGE LPAREN NUMBER RPAREN COLON statement'''
+        if self.mode == 'C':
+            output = "for (int %s = 0; %s < %s; %s++) {\n\t%s\n}" % (p[2], p[2], p[6], p[2], p[9])
+            p[0] = output
+        else:
+            output = "for %s in range(%s):\n\t%s" % (p[2], p[6], p[9])
             p[0] = output
 
     # Handle numpy operations
@@ -210,8 +220,9 @@ class MyParser(object):
 
         if self.mode == 'C':
             #output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
-            output = pythonToC.set_arr(variable_name, list_values_with_brackets,list_values, "test")
-            p[0] = output
+            # output = pythonToC.set_arr(variable_name, list_values_with_brackets,list_values, "test")
+            # p[0] = output
+            pass
         else:
             # TODO: Call the Python function
             print("Calling Python function")
