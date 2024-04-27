@@ -127,7 +127,7 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def set_arr(var_name, var, var_length, file_name):\n    file = open(file_name + \".c\", \"a\")\n    #actually getting an array\n    #arr_string = (np.array_str(var))[6:]\n    #if variables == \"\":\n       # variables += f\"d_{var}\"\n    #else:\n        #variables += (f\", d_{var}\")\n    variables.append(f\"d_{var_name}\")\n    #file.write(f\"   float h_{var_name}[{var_length}] = {var};\\n\")",
+        "peekOfCode": "def set_arr(var_name, var, var_length, file_name):\n    file = open(file_name + \".c\", \"a\")\n    #actually getting an array\n    #arr_string = (np.array_str(var))[6:]\n    #if variables == \"\":\n       # variables += f\"d_{var}\"\n    #else:\n        #variables += (f\", d_{var}\")\n    variables = []\n    variables.append(f\"d_{var_name}\")",
         "detail": "pythonToC",
         "documentation": {}
     },
