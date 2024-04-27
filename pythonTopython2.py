@@ -23,3 +23,6 @@ def numpy_dot_to_py(a, b):
     a_name = get_var_name(a)
     b_name = get_var_name(b)
     return f"cupy.dot({a_name}, {b_name})"
+
+def array_to_py(variable_name, list_values):
+    return f"{variable_name} = cp.array({list_values.tolist()})"

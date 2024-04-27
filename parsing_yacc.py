@@ -1,6 +1,7 @@
 from ply import yacc
 import numpy as np
 import pythonToC
+import pythonTopython2 as pytopy
 
 from parsing_lex import main, MyLexer
 # Create a class that will build the yacc Parser
@@ -196,6 +197,8 @@ class MyParser(object):
         else:
             # TODO: Call the Python function 
             print("Calling Python function")
+            output = pytopy.array_to_py(variable_name, list_values)
+            p[0] = output
             pass
 
 
@@ -211,6 +214,7 @@ class MyParser(object):
         else:
             # TODO: Call the Python function 
             print("Calling Python function")
+            result = pytopy.numpy_add_to_py(p[5], p[7])
             pass
 
     # Handle numpy subtract
@@ -225,6 +229,7 @@ class MyParser(object):
         else:
             # TODO: Call the Python function
             print("Calling Python function")
+            result = pytopy.numpy_subtract_to_py(p[5], p[7])
             pass
 
     # Handle numpy sum
@@ -239,6 +244,7 @@ class MyParser(object):
         else:
             # TODO: Call the Python function
             print("Calling Python function")
+            result = pytopy.numpy_sum_to_py(p[5])
             pass
 
     # Handle numpy dot product
@@ -253,6 +259,7 @@ class MyParser(object):
         else:
             # TODO: Call the Python function
             print("Calling Python function")
+            result = pytopy.numpy_dot_to_py(p[5], p[7])
 
     def p_space(self, p):
         '''statement : '''
