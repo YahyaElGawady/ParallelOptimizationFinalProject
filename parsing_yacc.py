@@ -51,13 +51,15 @@ class MyParser(object):
 
     
     #handling exponentiation 
-    def p_expression_power(self, p):
-        '''statement : POWER LPAREN statement COMMA statement RPAREN
-                     | POWER LPAREN NUMBER COMMA NUBMER RPARENß'''
+    def p_expression_exponentiation(self, p):
+        '''statement : NUMBER POWER NUMBER 
+                     | NUMBER POWER statement
+                     | statement POWER NUMBER
+                     | statement POWER statement''' 
         if self.mode == 'C':
-            output = "pow(%s, %s)" % (p[3], p[5])
+            output = "pow(%s, %s)" % (p[1], p[3]) 
         else:
-            output = "%s ** %s" % (p[3], p[5])
+            output = "%s ** %s" % (p[1], p[3]) 
         p[0] = output
 
     

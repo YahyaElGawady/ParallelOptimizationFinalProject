@@ -157,7 +157,7 @@ class MyLexer(object):
         return t
     
     def t_POWER(self, t):
-        r'(?:np|numpy)\.(?:power)' 
+        r'POWER' 
         return t
     
     def t_NP_SIN(self, t):
