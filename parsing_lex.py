@@ -112,7 +112,7 @@ class MyLexer(object):
     # Numpy dot product will come in the format np.dot or numpy.dot
     t_NP_DOT_PRODUCT = r'(?:np|numpy)\.(?:dot)'
     #Numpy sin will come in format np.sin or numpy.sin
-    t_NP_SIN = r'(?:np|numpy)\.(?:sin)'
+    #t_NP_SIN = r'(?:np|numpy)\.(?:sin)'
     #Numpy cos will come in format np.cos or numpy.cos
     t_NP_COS = r'(?:np|numpy)\.(?:cos)'
     #Numpy exp will come in the format np.exp or numpy.exp
@@ -163,6 +163,10 @@ class MyLexer(object):
     
     def t_POWER(self, t):
         r'POWER'
+        return t
+    
+    def t_NP_SIN(t):
+        r'(?:np|numpy)\.(?:sin)'
         return t
     
     def t_VARIABLE(self, t):

@@ -86,6 +86,13 @@ class MyParser(object):
             output = "%s -= 1" % p[2]
         p[0] = output
     
+    def p_expression_np_sin(self, p):
+        '''statement : NP_SIN LPAREN statement RPAREN'''
+        if self.mode == 'C':
+            output = "sin(%s)" % p[3]
+        else:
+            output = "np.sin(%s)" % p[3]
+        p[0] = output
 
 
     # Handle print statements 
