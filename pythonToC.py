@@ -39,6 +39,7 @@ def set_arr(var_name, var, var_length, file_name):
        # variables += f"d_{var}"
     #else:
         #variables += (f", d_{var}")
+    variables = []
     variables.append(f"d_{var_name}")
     #file.write(f"   float h_{var_name}[{var_length}] = {var};\n")
     #file.write(f"    float *d_{var_name};\n")
