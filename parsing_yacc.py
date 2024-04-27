@@ -65,9 +65,9 @@ class MyParser(object):
     
     #handling increment operator
     def p_expression_increment(self, p):
-        '''statement : INCREMENT NUMBER 
-                     | INCREMENT statement
-                     | INCREMENT VARIABLE'''
+        '''statement : NUMBER INCREMENT
+                     | statement INCREMENT
+                     | VARIABLE INCREMENT'''
         if self.mode == 'C':
             output = "%s++" % p[1]
         else:
@@ -77,9 +77,9 @@ class MyParser(object):
     
     #handling decrement operator
     def p_expression_decrement(self, p):
-        '''statement : INCREMENT NUMBER 
-                     | INCREMENT statement
-                     | INCREMENT VARIABLE'''
+        '''statement : DECREMENT NUMBER 
+                     | DECREMENT statement
+                     | DECREMENT VARIABLE'''
         if self.mode == 'C':
             output = "%s--" % p[1]
         else:
