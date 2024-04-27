@@ -16,7 +16,10 @@ class MyParser(object):
 
     #handling logical AND operator
     def p_expression_and(self, p):
-        '''statement : statement AND statement'''
+        '''statement : NUMBER AND NUMBER 
+                     | NUMBER AND statement
+                     | statement AND NUMBER
+                     | statement AND statement'''
         if self.mode == 'C':
             output = "%s && %s" % (p[1], p[3])
         else:
@@ -32,13 +35,14 @@ class MyParser(object):
         if self.mode == 'C':
             output = "%s || %s" % (p[1], p[3])
         else:
-            output = "%s and %s" % (p[1], p[3])
+            output = "%s or %s" % (p[1], p[3])
         p[0] = output
 
     
     #handling logical NOT operator
     def p_expression_not(self, p):
-        '''statement : NOT statement'''
+        '''statement : NOT NUMBER 
+                     | NOT statement'''
         if self.mode == 'C':
             output = "!%s" % p[2]
         else: 
@@ -48,7 +52,10 @@ class MyParser(object):
     
     #handling exponentiation 
     def p_expression_exponentiation(self, p):
-        '''statement : statement POWER statement'''
+        '''statement : NUMBER POWER NUMBER 
+                     | NUMBER POWER statement
+                     | statement POWER NUMBER
+                     | statement POWER statement'''
         if self.mode == 'C':
             output = "pow(%s, %s)" % (p[1], p[3])
         else:
@@ -58,7 +65,9 @@ class MyParser(object):
     
     #handling increment operator
     def p_expression_increment(self, p):
-        '''statement : VARIABLE INCREMENT'''
+        '''statement : INCREMENT NUMBER 
+                     | INCREMENT statement
+                     | INCREMENT VARIABLE'''
         if self.mode == 'C':
             output = "%s++" % p[1]
         else:
@@ -68,7 +77,9 @@ class MyParser(object):
     
     #handling decrement operator
     def p_expression_decrement(self, p):
-        '''statement : VARIABLE DECREMENT'''
+        '''statement : INCREMENT NUMBER 
+                     | INCREMENT statement
+                     | INCREMENT VARIABLE'''
         if self.mode == 'C':
             output = "%s--" % p[1]
         else:
@@ -237,7 +248,7 @@ class MyParser(object):
         # Inputs are p[5] and p[7]
         if self.mode == 'C':
             # TODO: Call the C function
-            print("Calling C function")
+            print("Calling C function") 
             pass
         else:
             # TODO: Call the Python function
