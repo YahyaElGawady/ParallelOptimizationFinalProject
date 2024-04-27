@@ -1,10 +1,10 @@
 from ply import yacc
 import numpy as np
 import pythonToC
+import pythonTopython2 as pytopy
 
 from parsing_lex import main, MyLexer
-
-# Create a class that will build the yacc Parser 
+# Create a class that will build the yacc Parser
 # Based on the mode, it will either call the C or Python parser
 class MyParser(object): 
     # Define the tokens that the parser will recognize 
@@ -191,11 +191,15 @@ class MyParser(object):
         print("List values: %s" % list_values)
 
         if self.mode == 'C':
-            output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
+            #output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
+            output = pythonToC.set_arr(variable_name, list_values_with_brackets,list_values, "test")
             p[0] = output
         else:
-            # TODO: Call the Python function 
+            # TODO: Call the Python function
             print("Calling Python function")
+
+            output = pytopy.array_to_py(variable_name, list_values)
+            p[0] = output
             pass
 
 
@@ -211,6 +215,8 @@ class MyParser(object):
         else:
             # TODO: Call the Python function 
             print("Calling Python function")
+            result = pytopy.numpy_add_to_py(p[5], p[7])
+            p[0] = result
             pass
 
     # Handle numpy subtract
@@ -225,6 +231,8 @@ class MyParser(object):
         else:
             # TODO: Call the Python function
             print("Calling Python function")
+            result = pytopy.numpy_subtract_to_py(p[5], p[7])
+            p[0] = result
             pass
 
     # Handle numpy sum
@@ -239,6 +247,8 @@ class MyParser(object):
         else:
             # TODO: Call the Python function
             print("Calling Python function")
+            result = pytopy.numpy_sum_to_py(p[5])
+            p[0] = result
             pass
 
     # Handle numpy dot product
@@ -253,6 +263,8 @@ class MyParser(object):
         else:
             # TODO: Call the Python function
             print("Calling Python function")
+            result = pytopy.numpy_dot_to_py(p[5], p[7])
+            p[0] = result
 
     def p_space(self, p):
         '''statement : '''
