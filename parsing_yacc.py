@@ -55,23 +55,23 @@ class MyParser(object):
         '''statement : NUMBER POWER NUMBER 
                      | NUMBER POWER statement
                      | statement POWER NUMBER
-                     | statement POWER statement'''
+                     | statement POWER statement''' 
         if self.mode == 'C':
-            output = "pow(%s, %s)" % (p[1], p[3])
+            output = "pow(%s, %s)" % (p[1], p[3]) 
         else:
-            output = "%s ** %s" % (p[1], p[3])
+            output = "%s ** %s" % (p[1], p[3]) 
         p[0] = output
 
     
     #handling increment operator
     def p_expression_increment(self, p):
-        '''statement : NUMBER INCREMENT
-                     | statement INCREMENT
-                     | VARIABLE INCREMENT'''
+        '''statement : INCREMENT NUMBER 
+                     | INCREMENT statement
+                     | INCREMENT VARIABLE'''
         if self.mode == 'C':
-            output = "%s++" % p[1]
+            output = "%s++" % p[2]
         else:
-            output = "%s += 1" % p[1]
+            output = "%s += 1" % p[2]
         p[0] = output 
 
     
@@ -81,9 +81,9 @@ class MyParser(object):
                      | DECREMENT statement
                      | DECREMENT VARIABLE'''
         if self.mode == 'C':
-            output = "%s--" % p[1]
+            output = "%s--" % p[2]
         else:
-            output = "%s -= 1" % p[1]
+            output = "%s -= 1" % p[2]
         p[0] = output
     
 

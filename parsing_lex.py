@@ -132,7 +132,7 @@ class MyLexer(object):
     #t_AND = r'AND'
     #t_OR = r'OR'
     #t_NOT = r'NOT'
-   # t_POWER = r'POWER'
+    #t_POWER = r'POWER'
     #t_INCREMENT = r'INCREMENT'
     #t_DECREMENT = r'DECREMENT'
     t_COMMA = r','
@@ -152,9 +152,18 @@ class MyLexer(object):
     def t_NOT(self, t):
         r'NOT'
         return t
-
-
-
+    
+    def t_INCREMENT(self, t):
+        r'INCREMENT'
+        return t 
+    
+    def t_DECREMENT(self, t):
+        r'DECREMENT'
+        return t
+    
+    def t_POWER(self, t):
+        r'POWER'
+        return t
     
     def t_VARIABLE(self, t):
         r'(?!np\.|numpy\.)[a-zA-Z_][a-zA-Z_0-9]*'
