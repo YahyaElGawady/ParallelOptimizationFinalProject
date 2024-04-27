@@ -6,6 +6,7 @@ def get_var_name(var):
     for name, value in globals().items():
         if value is var:
             return name
+    return var
 
 def numpy_add_to_py(a, b):
     a_name = get_var_name(a)
@@ -30,4 +31,5 @@ def array_to_py(variable_name, list_values):
     # list_values is a string containing comma-separated values 
     # Turn list_values into a list, and each value in the list into an integer 
     values = [int(value) for value in list_values.split(',')]
+
     return f"{variable_name} = cupy.array({values})"

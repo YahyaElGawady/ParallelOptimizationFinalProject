@@ -208,15 +208,15 @@ class MyParser(object):
     # Handle creating a numpy array from a list  
     def p_numpy_array(self, p):
         '''statement : VARIABLE EQUALS ARRAY LPAREN LIST RPAREN'''
-        print("Creating a numpy array from a list")
+        # print("Creating a numpy array from a list")
         # Iterate through p 
         variable_name = p[1]
         list_values_with_brackets = p[5]
         list_values = list_values_with_brackets[1:-1]
         length_of_list = len(list_values.split(','))
 
-        print("Variable name: %s" % variable_name)
-        print("List values: %s" % list_values)
+        # print("Variable name: %s" % variable_name)
+        # print("List values: %s" % list_values)
 
         if self.mode == 'C':
             #output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
@@ -225,8 +225,6 @@ class MyParser(object):
             pass
         else:
             # TODO: Call the Python function
-            print("Calling Python function")
-
             output = pytopy.array_to_py(variable_name, list_values)
             p[0] = output
 
@@ -234,15 +232,17 @@ class MyParser(object):
     # Handle numpy add
     def p_numpy_add(self, p):
         '''statement : VARIABLE EQUALS NP_ADD LPAREN VARIABLE COMMA VARIABLE RPAREN'''
-        print("Adding two numpy arrays")
+        # print("Adding two numpy arrays")
         # The inputs are p[5] and p[7]
+        # print(p[5]) 
+        # print(p[7])
         if self.mode == 'C': 
             # TODO: Call the C function 
             print("Calling C function")
             pass 
         else:
             # TODO: Call the Python function 
-            print("Calling Python function")
+            # print("Calling Python function")
             result = pytopy.numpy_add_to_py(p[5], p[7])
             p[0] = result
 
@@ -257,7 +257,7 @@ class MyParser(object):
             pass
         else:
             # TODO: Call the Python function
-            print("Calling Python function")
+            # print("Calling Python function")
             result = pytopy.numpy_subtract_to_py(p[5], p[7])
             p[0] = result
 
@@ -272,7 +272,7 @@ class MyParser(object):
             pass
         else:
             # TODO: Call the Python function
-            print("Calling Python function")
+            # print("Calling Python function")
             result = pytopy.numpy_sum_to_py(p[5])
             p[0] = result
 
@@ -287,7 +287,7 @@ class MyParser(object):
             pass
         else:
             # TODO: Call the Python function
-            print("Calling Python function")
+            # print("Calling Python function")
             result = pytopy.numpy_dot_to_py(p[5], p[7])
             p[0] = result
 

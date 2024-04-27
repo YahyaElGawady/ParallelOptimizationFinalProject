@@ -325,7 +325,7 @@
         "kind": 2,
         "importPath": "pythonTopython2",
         "description": "pythonTopython2",
-        "peekOfCode": "def setup(file_name):\n    file = open(file_name + \".py\", \"a\")\n    file.write(\"import cupy\")\ndef get_var_name(var):\n    for name, value in globals().items():\n        if value is var:\n            return name\ndef numpy_add_to_py(a, b):\n    a_name = get_var_name(a)\n    b_name = get_var_name(b)",
+        "peekOfCode": "def setup(file_name):\n    file = open(file_name + \".py\", \"a\")\n    file.write(\"import cupy\")\ndef get_var_name(var):\n    for name, value in globals().items():\n        if value is var:\n            return name\n    return var\ndef numpy_add_to_py(a, b):\n    a_name = get_var_name(a)",
         "detail": "pythonTopython2",
         "documentation": {}
     },
@@ -334,7 +334,7 @@
         "kind": 2,
         "importPath": "pythonTopython2",
         "description": "pythonTopython2",
-        "peekOfCode": "def get_var_name(var):\n    for name, value in globals().items():\n        if value is var:\n            return name\ndef numpy_add_to_py(a, b):\n    a_name = get_var_name(a)\n    b_name = get_var_name(b)\n    return f\"cupy.add({a_name}, {b_name})\"\ndef numpy_subtract_to_py(a, b):\n    a_name = get_var_name(a)",
+        "peekOfCode": "def get_var_name(var):\n    for name, value in globals().items():\n        if value is var:\n            return name\n    return var\ndef numpy_add_to_py(a, b):\n    a_name = get_var_name(a)\n    b_name = get_var_name(b)\n    return f\"cupy.add({a_name}, {b_name})\"\ndef numpy_subtract_to_py(a, b):",
         "detail": "pythonTopython2",
         "documentation": {}
     },
