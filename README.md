@@ -35,9 +35,7 @@ python -m pip install -U setuptools pip
 Then install CuPy:
 
 ```bash
-
 pip install cupy-cuda12x
-
 ```
 
 ### Project installation
