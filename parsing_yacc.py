@@ -220,7 +220,7 @@ class MyParser(object):
 
         if self.mode == 'C':
             #output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
-            output = pythonToC.set_arr(variable_name, list_values_with_brackets,list_values, "test")
+            output = pytoc.set_arr(variable_name, list_values_with_brackets,list_values, "test")
             p[0] = output
             pass
         else:
@@ -238,9 +238,9 @@ class MyParser(object):
         # print(p[7])
         if self.mode == 'C': 
             # TODO: Call the C function
-            result = pytoc.numpy_add_to_C(p[5],p[7],p[1])
+            result = pytoc.numpy_add_to_c(p[5],p[7],p[1])
             p[0]=result
-            print("Calling C function")
+            # print("Calling C function")
             pass 
         else:
             # TODO: Call the Python function 
@@ -251,13 +251,13 @@ class MyParser(object):
     # Handle numpy subtract
     def p_numpy_subtract(self, p):
         '''statement : VARIABLE EQUALS NP_SUBTRACT LPAREN VARIABLE COMMA VARIABLE RPAREN'''
-        print("Subtracting two numpy arrays")
+        # print("Subtracting two numpy arrays")
         # Inputs are p[5] and p[7]
         if self.mode == 'C':
             # TODO: Call the C function
             result = pytoc.numpy_sub_to_c(p[5],p[7],p[1])
             p[0]= result
-            print("Calling C function")
+            # print("Calling C function")
             pass
         else:
             # TODO: Call the Python function
@@ -268,13 +268,13 @@ class MyParser(object):
     # Handle numpy sum
     def p_numpy_sum(self, p):
         '''statement : VARIABLE EQUALS NP_SUM LPAREN VARIABLE RPAREN'''
-        print("Summing a numpy array")
+        # print("Summing a numpy array")
         # Input is p[5]
         if self.mode == 'C':
             # TODO: Call the C function
             result = pytoc.numpy_sum_to_c(p[5], p[1])
             p[0]=result
-            print("Calling C function")
+            # print("Calling C function")
             pass
         else:
             # TODO: Call the Python function
@@ -285,12 +285,12 @@ class MyParser(object):
     # Handle numpy dot product
     def p_numpy_dot_product(self, p):
         '''statement : VARIABLE EQUALS NP_DOT_PRODUCT LPAREN VARIABLE COMMA VARIABLE RPAREN'''
-        print("Taking the dot product of two numpy arrays")
+        # print("Taking the dot product of two numpy arrays")
         # Inputs are p[5] and p[7]
         if self.mode == 'C':
             # TODO: Call the C function
             result = pytoc.numpy_dot_product_to_c(p[5],p[7],p[1])
-            print("Calling C function") 
+            # print("Calling C function") 
             pass
         else:
             # TODO: Call the Python function
