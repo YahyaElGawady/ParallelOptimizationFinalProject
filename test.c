@@ -308,6 +308,7 @@ void test_kernel(float * d_input, float * d_output, const int matrix_dim){
 
 __global__
 void test_kernel(float * d_input, float * d_output, const int matrix_dim){
+<<<<<<< HEAD
 //%%cuda_group_save -n run.cu -g default
 #include <stdio.h>
 #include "util.h"
@@ -406,3 +407,5 @@ void test_kernel(float * d_input, float * d_output, const int matrix_dim){
 
 __global__
 void test_kernel(float * d_input, float * d_output, const int matrix_dim){
+=======
+>>>>>>> d521f0f64bd8c651e6c94a118f950eb7327ae27b
