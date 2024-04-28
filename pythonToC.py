@@ -2,8 +2,18 @@
 import inspect
 import numpy as np
 
-variables = ""
 
+class Variables:
+    variables = ""  #static variable
+
+    def __init__(self, var):
+        if Variables.variables == "":
+            Variables.variables += f"d_{var}"
+        else:
+            Variables.variables += f", d_{var}"
+    @staticmethod
+    def get_variables():
+        return Variables.variables
 
 # Define your functions here
 def set_up(file_name):
@@ -36,11 +46,12 @@ def set_arr(var_name, var, var_length, file_name):
     #actually getting an array
     #arr_string = (np.array_str(var))[6:]
     #if variables == "":
-       # variables += f"d_{var}"
+    # variables += f"d_{var}"
     #else:
-        #variables += (f", d_{var}")
-    variables = []
-    variables.append(f"d_{var_name}")
+    #variables += (f", d_{var}")
+    #variables = []
+    #variables.append(f"d_{var_name}")
+    Variables(var_name)
     #file.write(f"   float h_{var_name}[{var_length}] = {var};\n")
     #file.write(f"    float *d_{var_name};\n")
     #file.write(f"   cudaMalloc(&d_{var_name},{var_length}*sizeof(float);\n")
@@ -48,13 +59,15 @@ def set_arr(var_name, var, var_length, file_name):
     output = f"   float h_{var_name}[{var_length}] = {var};\n"
     output += f"    float *d_{var_name};\n"
     output += f"   cudaMalloc(&d_{var_name},{var_length}*sizeof(float);\n"
-    output += transfer_data(var, file_name, True)
+    output += transfer_data(var_name,var, file_name, True)
+    return output
+
 
 def deploy_kernel(file_name):
     file = open(file_name + ".c", "a")
     file.write(f"    THREADS_PER_BLOCK = matrix_dim;\n")
     file.write("    BLOCKS_PER_GRID = matrix_dim;\n")
-    file.write(f"    {file_name}_kernel<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>({variables});\n")
+    file.write(f"    {file_name}_kernel<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>({Variables.get_variables()});\n")
     file.write("    cudaDeviceSynchronize();\n\n")
 
 
@@ -66,6 +79,7 @@ def transfer_data(var_name, var, file_name, hToD):
     else:
         #file.write(f"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);")
         return f"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);\n"
+
 
 def free_data(var, file_name):
     file = open(file_name + ".c", "a")
@@ -145,7 +159,8 @@ def main():
     set_up('test')
     end_kernel('test')
     set_up_main('test')
-    set_arr("b", "[1, 2, 3]", "test")
+    set_arr("b", "[1, 2, 3]",3, "test")
+    set_arr("a", "[1, 2, 3]",3, "test")
     deploy_kernel('test')
     end_main('test')
     pass

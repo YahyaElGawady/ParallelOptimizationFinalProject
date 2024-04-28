@@ -1,6 +1,6 @@
 from ply import yacc
 import numpy as np
-import pythonToC
+import pythonToC as pytoc
 import pythonTopython2 as pytopy
 
 from parsing_lex import main, MyLexer
@@ -220,8 +220,8 @@ class MyParser(object):
 
         if self.mode == 'C':
             #output = "int %s[%d] = {%s};" % (variable_name, length_of_list, list_values)
-            # output = pythonToC.set_arr(variable_name, list_values_with_brackets,list_values, "test")
-            # p[0] = output
+            output = pythonToC.set_arr(variable_name, list_values_with_brackets,list_values, "test")
+            p[0] = output
             pass
         else:
             # TODO: Call the Python function
@@ -237,7 +237,9 @@ class MyParser(object):
         # print(p[5]) 
         # print(p[7])
         if self.mode == 'C': 
-            # TODO: Call the C function 
+            # TODO: Call the C function
+            result = pytoc.numpy_add_to_C(p[5],p[7],p[1])
+            p[0]=result
             print("Calling C function")
             pass 
         else:
@@ -253,6 +255,8 @@ class MyParser(object):
         # Inputs are p[5] and p[7]
         if self.mode == 'C':
             # TODO: Call the C function
+            result = pytoc.numpy_sub_to_c(p[5],p[7],p[1])
+            p[0]= result
             print("Calling C function")
             pass
         else:
@@ -268,6 +272,8 @@ class MyParser(object):
         # Input is p[5]
         if self.mode == 'C':
             # TODO: Call the C function
+            result = pytoc.numpy_sum_to_c(p[5], p[1])
+            p[0]=result
             print("Calling C function")
             pass
         else:
@@ -283,6 +289,7 @@ class MyParser(object):
         # Inputs are p[5] and p[7]
         if self.mode == 'C':
             # TODO: Call the C function
+            result = pytoc.numpy_dot_product_to_c(p[5],p[7],p[1])
             print("Calling C function") 
             pass
         else:
