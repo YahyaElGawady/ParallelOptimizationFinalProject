@@ -1,3 +1,4 @@
+
 def setup(file_name):
     file = open(file_name + ".py", "a")
     file.write("import cupy")

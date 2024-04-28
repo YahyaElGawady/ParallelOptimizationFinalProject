@@ -1,19 +1,28 @@
 # Import any necessary modules here
 import inspect
+import time
 import numpy as np
+
+import parsing_yacc
 
 
 class Variables:
     variables = ""  #static variable
-
-    def __init__(self, var):
+    var_with_type = ""
+    def __init__(self, var, var_type = "float*"):
         if Variables.variables == "":
             Variables.variables += f"d_{var}"
+            Variables.var_with_type += f"{var_type} {var}"
         else:
             Variables.variables += f", d_{var}"
+            Variables.var_with_type += f", {var_type} {var}"
+
     @staticmethod
     def get_variables():
         return Variables.variables
+    @staticmethod
+    def get_var_with_type():
+        return Variables.var_with_type
 
 # Define your functions here
 def set_up(file_name):
@@ -42,7 +51,7 @@ def set_up_main(file_name):
 
 
 def set_arr(var_name, var, var_length, file_name):
-    file = open(file_name + ".c", "a")
+    file = open(file_name + "_temp.c", "a")
     #actually getting an array
     #arr_string = (np.array_str(var))[6:]
     #if variables == "":
@@ -59,8 +68,10 @@ def set_arr(var_name, var, var_length, file_name):
     output = f"   float h_{var_name}[{var_length}] = {var};\n"
     output += f"    float *d_{var_name};\n"
     output += f"   cudaMalloc(&d_{var_name},{var_length}*sizeof(float);\n"
-    output += transfer_data(var_name,var, file_name, True)
-    return output
+    output += transfer_data(var_name, file_name, True)
+    #return output
+    file.write(output)
+    return ""
 
 
 def deploy_kernel(file_name):
@@ -71,7 +82,7 @@ def deploy_kernel(file_name):
     file.write("    cudaDeviceSynchronize();\n\n")
 
 
-def transfer_data(var_name, var, file_name, hToD):
+def transfer_data(var_name, file_name, hToD):
     file = open(file_name + ".c", "a")
     if hToD:
         #file.write(f"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\n\n")
@@ -105,7 +116,7 @@ def numpy_add_to_c(a_name, b_name, result_name):
     #a_name = get_var_name(a)
     #b_name = get_var_name(b)
     #result_name = get_var_name(result)
-    return f"addArraysHelper({a_name}, {b_name}, {result_name});"
+    return f"addArraysHelper({a_name}, {b_name}, {result_name});\n"
 
 
 def numpy_sub_to_c(a_name, b_name, result_name):
@@ -153,18 +164,52 @@ def set_up_host(args, file_name, matrix_dim):
     file.write("    free(h_input);\n")
     file.write("    free(h_output);\n\n")
     file.close();
+def replace_the_kernel_config(file_name):
+    with open(f"{file_name}.c", 'r') as file:
+        data = file.read()
 
+        data = data.replace(f"void {file_name}_kernel(float * d_input, float * d_output, const int matrix_dim)" + "{\n", f"void {file_name}_kernel({Variables.get_var_with_type()})" + "{\n")
+    with open(f"{file_name}.c", 'w') as file:
+        file.write(data)
 
+def transfer_data_back_and_free(file_name):
+    file = open(file_name + ".c")
+    for var in Variables.variables.split(", "):
+        file.write(transfer_data(var,file_name, False)+"\n")
+    for var in Variables.variables.split(", "):
+        free_data(var,file_name)
 def main():
+    file = open("test.c", "a")
+    input = """
+    A = np.array([1, 2, 3])
+    B = np.array([4, 5, 6])
+    C = np.add(A, B)
+    """
+    #mode = "C"
+    #print("mode is C")
+    #for line in input.split("\n"):
+    #    if line == "":
+    #        continue
+    #    result = parsing_yacc.main(line, mode)
+    #    file.write(result)
+    #    print(result)
     set_up('test')
-    end_kernel('test')
-    set_up_main('test')
+
     set_arr("b", "[1, 2, 3]",3, "test")
     set_arr("a", "[1, 2, 3]",3, "test")
+    file.write(numpy_add_to_c('a','b','c'))
+    end_kernel('test')
+    set_up_main('test')
+    file_read = open("test_temp.c", 'r')
+    for line in file_read:
+         file.write(line)
     deploy_kernel('test')
+    transfer_data_back_and_free('test')
     end_main('test')
+    file.close()
+    file_read.close()
+    replace_the_kernel_config("test")
     pass
-
 
 if __name__ == "__main__":
     main()
