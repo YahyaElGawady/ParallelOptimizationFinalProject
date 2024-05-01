@@ -18,12 +18,30 @@
         "documentation": {}
     },
     {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
         "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "numpy",
         "description": "numpy",
         "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "parsing_yacc",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "parsing_yacc",
+        "description": "parsing_yacc",
+        "detail": "parsing_yacc",
         "documentation": {}
     },
     {
@@ -69,6 +87,15 @@
         "documentation": {}
     },
     {
+        "label": "cupyimport",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cupyimport",
+        "description": "cupyimport",
+        "detail": "cupyimport",
+        "documentation": {}
+    },
+    {
         "label": "MyLexer",
         "kind": 6,
         "importPath": "parsing_lex",
@@ -84,6 +111,15 @@
         "description": "parsing_lex",
         "peekOfCode": "def main(input):\n    # Call your parsing function(s) here\n    # Let input be a string that contains the code to be parsed \n    m = MyLexer() \n    m.build() \n    m.test(input)\nif __name__ == \"__main__\":\n    main()",
         "detail": "parsing_lex",
+        "documentation": {}
+    },
+    {
+        "label": "Variables",
+        "kind": 6,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "class Variables:\n    variables = \"\"  #static variable\n    var_with_type = \"\"\n    def __init__(self, var, var_type = \"float*\"):\n        if Variables.variables == \"\":\n            Variables.variables += f\"d_{var}\"\n            Variables.var_with_type += f\"{var_type} {var}\"\n        else:\n            Variables.variables += f\", d_{var}\"\n            Variables.var_with_type += f\", {var_type} {var}\"",
+        "detail": "pythonToC",
         "documentation": {}
     },
     {
@@ -109,7 +145,7 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def end_main(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"    return 0;\\n}\")\ndef set_up_main(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"__host__\\n int main() {\\n\")\ndef set_arr(var_name, var, var_length, file_name):\n    file = open(file_name + \".c\", \"a\")\n    #actually getting an array\n    #arr_string = (np.array_str(var))[6:]",
+        "peekOfCode": "def end_main(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"    return 0;\\n}\")\ndef set_up_main(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"__host__\\n int main() {\\n\")\ndef set_arr(var_name, var, var_length, file_name):\n    file = open(file_name + \"_temp.c\", \"a\")\n    #actually getting an array\n    #arr_string = (np.array_str(var))[6:]",
         "detail": "pythonToC",
         "documentation": {}
     },
@@ -118,7 +154,7 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def set_up_main(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"__host__\\n int main() {\\n\")\ndef set_arr(var_name, var, var_length, file_name):\n    file = open(file_name + \".c\", \"a\")\n    #actually getting an array\n    #arr_string = (np.array_str(var))[6:]\n    #if variables == \"\":\n       # variables += f\"d_{var}\"\n    #else:",
+        "peekOfCode": "def set_up_main(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"__host__\\n int main() {\\n\")\ndef set_arr(var_name, var, var_length, file_name):\n    file = open(file_name + \"_temp.c\", \"a\")\n    #actually getting an array\n    #arr_string = (np.array_str(var))[6:]\n    #if variables == \"\":\n    # variables += f\"d_{var}\"\n    #else:",
         "detail": "pythonToC",
         "documentation": {}
     },
@@ -127,7 +163,7 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def set_arr(var_name, var, var_length, file_name):\n    file = open(file_name + \".c\", \"a\")\n    #actually getting an array\n    #arr_string = (np.array_str(var))[6:]\n    #if variables == \"\":\n       # variables += f\"d_{var}\"\n    #else:\n        #variables += (f\", d_{var}\")\n    variables = []\n    variables.append(f\"d_{var_name}\")",
+        "peekOfCode": "def set_arr(var_name, var, var_length, file_name):\n    file = open(file_name + \"_temp.c\", \"a\")\n    #actually getting an array\n    #arr_string = (np.array_str(var))[6:]\n    #if variables == \"\":\n    # variables += f\"d_{var}\"\n    #else:\n    #variables += (f\", d_{var}\")\n    #variables = []\n    #variables.append(f\"d_{var_name}\")",
         "detail": "pythonToC",
         "documentation": {}
     },
@@ -136,7 +172,7 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def deploy_kernel(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(f\"    THREADS_PER_BLOCK = matrix_dim;\\n\")\n    file.write(\"    BLOCKS_PER_GRID = matrix_dim;\\n\")\n    file.write(f\"    {file_name}_kernel<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>({variables});\\n\")\n    file.write(\"    cudaDeviceSynchronize();\\n\\n\")\ndef transfer_data(var_name, var, file_name, hToD):\n    file = open(file_name + \".c\", \"a\")\n    if hToD:\n        #file.write(f\"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\\n\\n\")",
+        "peekOfCode": "def deploy_kernel(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(f\"    THREADS_PER_BLOCK = matrix_dim;\\n\")\n    file.write(\"    BLOCKS_PER_GRID = matrix_dim;\\n\")\n    file.write(f\"    {file_name}_kernel<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>({Variables.get_variables()});\\n\")\n    file.write(\"    cudaDeviceSynchronize();\\n\\n\")\ndef transfer_data(var_name, file_name, hToD):\n    file = open(file_name + \".c\", \"a\")\n    if hToD:\n        #file.write(f\"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\\n\\n\")",
         "detail": "pythonToC",
         "documentation": {}
     },
@@ -145,7 +181,7 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def transfer_data(var_name, var, file_name, hToD):\n    file = open(file_name + \".c\", \"a\")\n    if hToD:\n        #file.write(f\"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\\n\\n\")\n        return f\"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\\n\\n\"\n    else:\n        #file.write(f\"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);\")\n        return f\"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);\\n\"\ndef free_data(var, file_name):\n    file = open(file_name + \".c\", \"a\")",
+        "peekOfCode": "def transfer_data(var_name, file_name, hToD):\n    file = open(file_name + \".c\", \"a\")\n    if hToD:\n        #file.write(f\"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\\n\\n\")\n        return f\"    cudaMemcpy(d_{var_name}, h_{var_name},sizeof(h_{var_name}), cudaMemcpyHostToDevice);\\n\\n\"\n    else:\n        #file.write(f\"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);\")\n        return f\"   cudaMemcpy(h_{var_name}, d_{var_name}, sizeof(h_{var_name}), cudaMemcpyDeviceToHost);\\n\"\ndef free_data(var, file_name):\n    file = open(file_name + \".c\", \"a\")",
         "detail": "pythonToC",
         "documentation": {}
     },
@@ -163,7 +199,7 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def get_var_name(var):\n    callers_local_vars = inspect.currentframe().f_back.f_locals.items()\n    return ([var_name for var_name, var_val in callers_local_vars if var_val is var])[0]\ndef numpy_add_to_c(a_name, b_name, result_name):\n    #a_name = get_var_name(a)\n    #b_name = get_var_name(b)\n    #result_name = get_var_name(result)\n    return f\"addArraysHelper({a_name}, {b_name}, {result_name});\"\ndef numpy_sub_to_c(a_name, b_name, result_name):\n    #a_name = get_var_name(a)",
+        "peekOfCode": "def get_var_name(var):\n    callers_local_vars = inspect.currentframe().f_back.f_locals.items()\n    return ([var_name for var_name, var_val in callers_local_vars if var_val is var])[0]\ndef numpy_add_to_c(a_name, b_name, result_name):\n    #a_name = get_var_name(a)\n    #b_name = get_var_name(b)\n    #result_name = get_var_name(result)\n    return f\"addArraysHelper({a_name}, {b_name}, {result_name});\\n\"\ndef numpy_sub_to_c(a_name, b_name, result_name):\n    #a_name = get_var_name(a)",
         "detail": "pythonToC",
         "documentation": {}
     },
@@ -172,7 +208,7 @@
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def numpy_add_to_c(a_name, b_name, result_name):\n    #a_name = get_var_name(a)\n    #b_name = get_var_name(b)\n    #result_name = get_var_name(result)\n    return f\"addArraysHelper({a_name}, {b_name}, {result_name});\"\ndef numpy_sub_to_c(a_name, b_name, result_name):\n    #a_name = get_var_name(a)\n    #b_name = get_var_name(b)\n    #result_name = get_var_name(result)\n    return f\"subtractArraysHelper({a_name}, {b_name}, {result_name});\"",
+        "peekOfCode": "def numpy_add_to_c(a_name, b_name, result_name):\n    #a_name = get_var_name(a)\n    #b_name = get_var_name(b)\n    #result_name = get_var_name(result)\n    return f\"addArraysHelper({a_name}, {b_name}, {result_name});\\n\"\ndef numpy_sub_to_c(a_name, b_name, result_name):\n    #a_name = get_var_name(a)\n    #b_name = get_var_name(b)\n    #result_name = get_var_name(result)\n    return f\"subtractArraysHelper({a_name}, {b_name}, {result_name});\"",
         "detail": "pythonToC",
         "documentation": {}
     },
@@ -213,20 +249,29 @@
         "documentation": {}
     },
     {
-        "label": "main",
+        "label": "replace_the_kernel_config",
         "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "def main():\n    set_up('test')\n    end_kernel('test')\n    set_up_main('test')\n    set_arr(\"b\", \"[1, 2, 3]\", \"test\")\n    deploy_kernel('test')\n    end_main('test')\n    pass\nif __name__ == \"__main__\":\n    main()",
+        "peekOfCode": "def replace_the_kernel_config(file_name):\n    with open(f\"{file_name}.c\", 'r') as file:\n        data = file.read()\n        data = data.replace(f\"void {file_name}_kernel(float * d_input, float * d_output, const int matrix_dim)\" + \"{\\n\", f\"void {file_name}_kernel({Variables.get_var_with_type()})\" + \"{\\n\")\n    with open(f\"{file_name}.c\", 'w') as file:\n        file.write(data)\ndef transfer_data_back_and_free(file_name):\n    file = open(file_name + \".c\")\n    for var in Variables.variables.split(\", \"):\n        file.write(transfer_data(var,file_name, False)+\"\\n\")",
         "detail": "pythonToC",
         "documentation": {}
     },
     {
-        "label": "variables",
-        "kind": 5,
+        "label": "transfer_data_back_and_free",
+        "kind": 2,
         "importPath": "pythonToC",
         "description": "pythonToC",
-        "peekOfCode": "variables = \"\"\n# Define your functions here\ndef set_up(file_name):\n    file = open(file_name + \".c\", \"a\")\n    file.write(\"//%%cuda_group_save -n run.cu -g default\\n\")\n    file.write(\"#include <stdio.h>\\n\")\n    file.write('#include \"util.h\"\\n')\n    file.write('#include \"help_file.c\"\\n\\n')\n    file.write(\"__global__\\n\")\n    file.write(f\"void {file_name}_kernel(float * d_input, float * d_output, const int matrix_dim)\" + \"{\\n\")",
+        "peekOfCode": "def transfer_data_back_and_free(file_name):\n    file = open(file_name + \".c\")\n    for var in Variables.variables.split(\", \"):\n        file.write(transfer_data(var,file_name, False)+\"\\n\")\n    for var in Variables.variables.split(\", \"):\n        free_data(var,file_name)\ndef main():\n    file = open(\"test.c\", \"a\")\n    input = \"\"\"\n    A = np.array([1, 2, 3])",
+        "detail": "pythonToC",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "pythonToC",
+        "description": "pythonToC",
+        "peekOfCode": "def main():\n    file = open(\"test.c\", \"a\")\n    input = \"\"\"\n    A = np.array([1, 2, 3])\n    B = np.array([4, 5, 6])\n    C = np.add(A, B)\n    \"\"\"\n    #mode = \"C\"\n    #print(\"mode is C\")\n    #for line in input.split(\"\\n\"):",
         "detail": "pythonToC",
         "documentation": {}
     },

@@ -5,8 +5,8 @@ A brief description of what this project does.
 ## Table of Contents
 
 - [Installation](#installation)
-- [Usage](#usage)
 - [Project Files](#project-files)
+- [Usage](#usage)
 
 ## Installation
 
@@ -51,7 +51,11 @@ In order to try out this project, please clone this Github repository to access 
 - `parsing_testing.ipynb` - This is a Python notebook that contains a series of unit tests centered around the application of the parser. In this tests, an input is defined. The input is then processed either by the Lexer or the Parser, and the output is printed out. 
 - `pythonToC.py` - This file contains the Python to C translation functions which will then be called in `parsing_yacc.py`. 
 - `pythonToPython2.py`  - This file containtains the NumPy to CuPy translation functions which will then be called in `parsing_yacc.py`. 
+- `side_testing.ipynb` - This is a Python notebook that contains the code for data generation of how long parsing C and Python code takes. 
+- `result.csv` - This file contains the results of the data generation in `side_testing.ipynb`.
 
 ## Usage
 
-Examples and instructions on how to use the project.
+Please clone this project to access the code. 
+* Examples on how to use the parser can be found in `parsing_testing.ipynb`.  
+* Further examples of how to use the parser can be found in `side_testing.ipynb`. 
